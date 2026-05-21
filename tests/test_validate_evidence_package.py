@@ -24,6 +24,11 @@ class ValidateEvidencePackageTest(unittest.TestCase):
         result = validate_package(load_mock_package())
         self.assertEqual(result.errors, [])
 
+    def test_mock_package_subject_role_is_not_corrupted(self):
+        data = load_mock_package()
+        self.assertEqual(data["subjectRole"], "技术岗位劳动者")
+        self.assertNotIn("?" * 3, data["subjectRole"])
+
     def test_mock_package_contains_preview_month_shape(self):
         data = load_mock_package()
         self.assertEqual(len(data["events"]), 4)
@@ -72,11 +77,19 @@ class ValidateEvidencePackageTest(unittest.TestCase):
 
     def test_git_message_id_must_use_mock_prefix(self):
         data = load_mock_package()
-        git_item = copy.deepcopy(data["evidenceItems"][2])
+        git_index = next(
+            index
+            for index, item in enumerate(data["evidenceItems"])
+            if item["sourceType"] == "git"
+        )
+        git_item = copy.deepcopy(data["evidenceItems"][git_index])
         git_item["messageId"] = "not-mock-commit"
-        data["evidenceItems"][2] = git_item
+        data["evidenceItems"][git_index] = git_item
         result = validate_package(data)
-        self.assertIn("$.evidenceItems[2].messageId must start with mock-", result.errors)
+        self.assertIn(
+            f"$.evidenceItems[{git_index}].messageId must start with mock-",
+            result.errors,
+        )
 
     def test_phone_like_value_does_not_trigger_commit_hash_error(self):
         data = load_mock_package()

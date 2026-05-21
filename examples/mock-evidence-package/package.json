@@ -5,7 +5,8 @@
   "subjectRole": "技术岗位劳动者",
   "inputSources": [
     "mock-wechat-export/messages.jsonl",
-    "mock-git-log/git-log.json"
+    "mock-git-log/git-log.json",
+    "mock-event-drafts/events.json"
   ],
   "events": [
     {
@@ -21,7 +22,7 @@
       "evidenceStrength": "strong",
       "qualityGate": "pass",
       "riskFlags": [],
-      "reviewAction": "人工复核聊天时间线与 mock Git 记录是否一致。"
+      "reviewAction": "复核 mock 时间线与多来源证据是否一致。"
     },
     {
       "eventId": "evt-mock-weekday-002",
@@ -35,8 +36,10 @@
       "workSummary": "客服后台示例线上问题排查与 mock 告警恢复确认。",
       "evidenceStrength": "medium",
       "qualityGate": "needs_review",
-      "riskFlags": ["weak_result_evidence"],
-      "reviewAction": "补充 mock 系统截图或更多结果确认记录。"
+      "riskFlags": [
+        "single_source_only"
+      ],
+      "reviewAction": "补充另一类 mock 来源，例如 Git、群聊或系统截图索引。"
     },
     {
       "eventId": "evt-mock-release-001",
@@ -51,7 +54,7 @@
       "evidenceStrength": "strong",
       "qualityGate": "pass",
       "riskFlags": [],
-      "reviewAction": "复核发布观察记录与 mock Git 记录是否对应。"
+      "reviewAction": "复核 mock 时间线与多来源证据是否一致。"
     },
     {
       "eventId": "evt-mock-rest-001",
@@ -63,9 +66,11 @@
       "multiplier": 2.0,
       "claimAmount": 0,
       "workSummary": "休息日 mock 数据修复任务与示例导入结果复核。",
-      "evidenceStrength": "medium",
+      "evidenceStrength": "strong",
       "qualityGate": "needs_review",
-      "riskFlags": ["manual_review_required"],
+      "riskFlags": [
+        "manual_review_required"
+      ],
       "reviewAction": "人工确认休息日任务来源和处理结果是否足够。"
     }
   ],
@@ -81,7 +86,8 @@
       "senderRole": "主管-B",
       "sourceQuote": "订单系统今晚需要完成示例接口联调，员工-A 请在 mock 环境确认结果。",
       "quickLocator": "示例接口联调",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "task_source"
     },
     {
       "evidenceId": "evd-mock-chat-002",
@@ -94,20 +100,8 @@
       "senderRole": "员工-A",
       "sourceQuote": "已完成 mock 环境联调，正在整理订单系统示例验证截图。",
       "quickLocator": "mock 环境联调",
-      "redactionLevel": "mock"
-    },
-    {
-      "evidenceId": "evd-mock-git-001",
-      "eventId": "evt-mock-weekday-001",
-      "sourceType": "git",
-      "sourceFileName": "mock-git-log/git-log.json",
-      "sourceRowNum": 1,
-      "messageId": "mock-a1b2c3d",
-      "timestamp": "2026-02-03T20:45:00+08:00",
-      "senderRole": "员工-A",
-      "sourceQuote": "mock-a1b2c3d mock: adjust order validation example",
-      "quickLocator": "mock-a1b2c3d",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "work_result"
     },
     {
       "evidenceId": "evd-mock-chat-003",
@@ -120,7 +114,8 @@
       "senderRole": "同事-D",
       "sourceQuote": "客服后台示例告警仍在出现，需要确认 mock 工单列表是否恢复。",
       "quickLocator": "mock 工单列表",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "task_source"
     },
     {
       "evidenceId": "evd-mock-chat-004",
@@ -133,7 +128,8 @@
       "senderRole": "员工-A",
       "sourceQuote": "已完成客服后台 mock 排查，示例告警数量恢复到预期区间。",
       "quickLocator": "示例告警数量",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "work_result"
     },
     {
       "evidenceId": "evd-mock-chat-005",
@@ -146,20 +142,8 @@
       "senderRole": "发布协调-C",
       "sourceQuote": "BI 报表服务今晚发布，需观察 mock 指标是否恢复。",
       "quickLocator": "观察 mock 指标",
-      "redactionLevel": "mock"
-    },
-    {
-      "evidenceId": "evd-mock-git-002",
-      "eventId": "evt-mock-release-001",
-      "sourceType": "git",
-      "sourceFileName": "mock-git-log/git-log.json",
-      "sourceRowNum": 3,
-      "messageId": "mock-d4e5f6g",
-      "timestamp": "2026-02-11T22:10:00+08:00",
-      "senderRole": "员工-A",
-      "sourceQuote": "mock-d4e5f6g mock: add release-night report guard",
-      "quickLocator": "mock-d4e5f6g",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "release_coordination"
     },
     {
       "evidenceId": "evd-mock-chat-006",
@@ -172,7 +156,8 @@
       "senderRole": "员工-A",
       "sourceQuote": "mock 发布观察已完成，BI 报表服务示例指标保持稳定。",
       "quickLocator": "示例指标保持稳定",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "work_result"
     },
     {
       "evidenceId": "evd-mock-chat-007",
@@ -185,7 +170,8 @@
       "senderRole": "主管-B",
       "sourceQuote": "休息日需要处理 mock 数据修复任务，优先恢复示例导入结果。",
       "quickLocator": "mock 数据修复任务",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "task_source"
     },
     {
       "evidenceId": "evd-mock-chat-008",
@@ -198,7 +184,36 @@
       "senderRole": "员工-A",
       "sourceQuote": "mock 数据修复已完成，示例导入结果通过复核。",
       "quickLocator": "示例导入结果",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "work_result"
+    },
+    {
+      "evidenceId": "evd-mock-git-001",
+      "eventId": "evt-mock-weekday-001",
+      "sourceType": "git",
+      "sourceFileName": "mock-git-log/git-log.json",
+      "sourceRowNum": 1,
+      "messageId": "mock-a1b2c3d",
+      "timestamp": "2026-02-03T20:45:00+08:00",
+      "senderRole": "员工-A",
+      "sourceQuote": "mock-a1b2c3d mock: adjust order validation example",
+      "quickLocator": "mock-a1b2c3d",
+      "redactionLevel": "mock",
+      "evidenceRole": "git_output"
+    },
+    {
+      "evidenceId": "evd-mock-git-002",
+      "eventId": "evt-mock-release-001",
+      "sourceType": "git",
+      "sourceFileName": "mock-git-log/git-log.json",
+      "sourceRowNum": 3,
+      "messageId": "mock-d4e5f6g",
+      "timestamp": "2026-02-11T22:10:00+08:00",
+      "senderRole": "员工-A",
+      "sourceQuote": "mock-d4e5f6g mock: add release-night report guard",
+      "quickLocator": "mock-d4e5f6g",
+      "redactionLevel": "mock",
+      "evidenceRole": "git_output"
     },
     {
       "evidenceId": "evd-mock-git-003",
@@ -211,7 +226,8 @@
       "senderRole": "员工-A",
       "sourceQuote": "mock-r7s8t9u mock: repair sample import rows",
       "quickLocator": "mock-r7s8t9u",
-      "redactionLevel": "mock"
+      "redactionLevel": "mock",
+      "evidenceRole": "git_output"
     }
   ],
   "excludedCandidates": [

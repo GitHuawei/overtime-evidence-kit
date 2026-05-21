@@ -1,0 +1,46 @@
+[
+  {
+    "eventId": "evt-mock-weekday-001",
+    "workDate": "2026-02-03",
+    "eventType": "weekday_overtime",
+    "startTime": "2026-02-03T19:00:00+08:00",
+    "endTime": "2026-02-03T21:30:00+08:00",
+    "durationMinutes": 150,
+    "multiplier": 1.5,
+    "claimAmount": 0,
+    "workSummary": "订单系统示例接口联调与 mock 验证结果整理。"
+  },
+  {
+    "eventId": "evt-mock-weekday-002",
+    "workDate": "2026-02-06",
+    "eventType": "weekday_overtime",
+    "startTime": "2026-02-06T19:30:00+08:00",
+    "endTime": "2026-02-06T21:00:00+08:00",
+    "durationMinutes": 90,
+    "multiplier": 1.5,
+    "claimAmount": 0,
+    "workSummary": "客服后台示例线上问题排查与 mock 告警恢复确认。"
+  },
+  {
+    "eventId": "evt-mock-release-001",
+    "workDate": "2026-02-11",
+    "eventType": "release_night",
+    "startTime": "2026-02-11T20:00:00+08:00",
+    "endTime": "2026-02-11T23:20:00+08:00",
+    "durationMinutes": 200,
+    "multiplier": 1.5,
+    "claimAmount": 0,
+    "workSummary": "BI 报表服务 mock 发布夜观察与示例问题处理。"
+  },
+  {
+    "eventId": "evt-mock-rest-001",
+    "workDate": "2026-02-21",
+    "eventType": "rest_day_task",
+    "startTime": "2026-02-21T10:00:00+08:00",
+    "endTime": "2026-02-21T12:30:00+08:00",
+    "durationMinutes": 150,
+    "multiplier": 2.0,
+    "claimAmount": 0,
+    "workSummary": "休息日 mock 数据修复任务与示例导入结果复核。"
+  }
+]

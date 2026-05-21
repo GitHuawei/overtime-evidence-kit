@@ -47,7 +47,27 @@
 
 ## 后续方向
 
-- 输入适配器设计，但只以 mock 或本地脱敏数据为示例。
+### Phase A: Input Adapter MVP
+
+状态：已完成。
+
+- mock source adapter 字段。
+- `scripts/build_mock_package.py`。
+- `docs/input-adapters.md`。
+- `docs/package-builder.md`。
+- build -> validate -> render 链路。
+
+### Phase B: Rules Engine MVP
+
+状态：已完成。
+
+- `scripts/rules_engine.py`。
+- `scripts/evaluate_mock_package.py`。
+- `docs/rules-engine.md`。
+- 自动计算 `evidenceStrength`、`qualityGate`、`riskFlags`、`reviewAction`。
+
+## 后续方向
+
 - 更多完整 mock 场景。
 - 公开输出字段白名单。
 - 本地-only 脱敏流程设计。

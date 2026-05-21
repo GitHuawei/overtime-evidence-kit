@@ -85,6 +85,30 @@ python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
 ```
 
+## Build package from mock inputs
+
+从 mock source 重新构建 package：
+
+```powershell
+python scripts/build_mock_package.py
+```
+
+计算规则字段：
+
+```powershell
+python scripts/evaluate_mock_package.py examples/mock-evidence-package/package.json
+```
+
+端到端链路：
+
+```powershell
+python scripts/build_mock_package.py | Set-Content -LiteralPath tmp-package.json -Encoding utf8
+python scripts/evaluate_mock_package.py tmp-package.json | Set-Content -LiteralPath tmp-evaluated-package.json -Encoding utf8
+python scripts/validate_evidence_package.py tmp-evaluated-package.json
+```
+
+`tmp-package.json` 和 `tmp-evaluated-package.json` 是本地临时文件，不应提交。
+
 ## 完整 mock 月份示例
 
 入口：
@@ -123,6 +147,9 @@ tests/      单元测试
 - [适用场景](docs/use-cases.md)
 - [mock 月份 walkthrough](docs/mock-month-walkthrough.md)
 - [证据包规格](docs/evidence-package-spec.md)
+- [输入适配器](docs/input-adapters.md)
+- [package builder](docs/package-builder.md)
+- [rules engine](docs/rules-engine.md)
 - [validator 规则](docs/validation-rules.md)
 - [隐私与脱敏原则](docs/privacy-and-redaction.md)
 - [服务边界](docs/service-boundary.md)

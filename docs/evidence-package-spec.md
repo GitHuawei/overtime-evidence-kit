@@ -41,8 +41,11 @@
 - `sourceQuote`
 - `quickLocator`
 - `redactionLevel`
+- `evidenceRole`
 
 `quickLocator` 必须是 `sourceQuote` 的子串，便于从结构化证据项回查到 mock source。
+
+`evidenceRole` 是可选字段，用于辅助 rules engine。允许值包括 `task_source`、`work_process`、`work_result`、`git_output`、`release_coordination`、`review_note`。
 
 ## 证据包字段
 

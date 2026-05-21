@@ -77,6 +77,19 @@ Git evidence 的 `messageId` 必须以 `mock-` 开头。
 
 对 mock JSONL 来源，validator 检查 `sourceRowNum` 对应行的 `messageId` 是否一致。
 
+### evidenceRole
+
+可选字段 `evidenceRole` 必须来自白名单：
+
+- `task_source`
+- `work_process`
+- `work_result`
+- `git_output`
+- `release_coordination`
+- `review_note`
+
+Rules engine 使用该字段推导证据强度、风险标记和复核动作。
+
 ### 敏感信息扫描
 
 检查：

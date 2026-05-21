@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -29,6 +30,25 @@ TEXT_SUFFIXES = {".md", ".json", ".jsonl", ".csv", ".py", ".yml", ".yaml"}
 PHONE_RE = re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)")
 ID_CARD_RE = re.compile(r"\b\d{17}[\dXx]\b")
 REAL_COMMIT_RE = re.compile(r"(?<!mock-)(?<!schema-)\b[0-9a-fA-F]{7,40}\b")
+TEXT_CORRUPTION_PATTERNS = [
+    ("\ufffd replacement character", re.compile("\ufffd")),
+    ("consecutive question marks", re.compile(r"\?{3,}")),
+    (
+        "mojibake cjk marker",
+        re.compile(
+            "|".join(
+                [
+                    "\ufffd" * 4,
+                    "\u0531\u0580" + "\ufffd" * 2,
+                    "\ufffd" * 4 + "\u03f5\u0373",
+                    "\u02be\ufffd\ufffd",
+                    "\ufffd\u0377\ufffd",
+                    "\ufffd\u6fbe\ufffd",
+                ]
+            )
+        ),
+    ),
+]
 
 
 def iter_files(*suffixes: str) -> list[Path]:
@@ -67,6 +87,20 @@ def run_subprocess(command: list[str], name: str, env: dict[str, str] | None = N
     return False
 
 
+def run_to_file(command: list[str], output_path: Path, name: str) -> bool:
+    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    if result.returncode != 0:
+        print(f"FAIL {name}")
+        if result.stdout:
+            print(result.stdout, end="")
+        if result.stderr:
+            print(result.stderr, end="", file=sys.stderr)
+        return False
+    output_path.write_text(result.stdout, encoding="utf-8")
+    print(f"PASS {name}")
+    return True
+
+
 def check_utf8_files() -> bool:
     for path in iter_files(*TEXT_SUFFIXES):
         try:
@@ -75,12 +109,20 @@ def check_utf8_files() -> bool:
             print("FAIL utf8 files")
             print(f"{path.relative_to(ROOT)}: {exc}")
             return False
-        if "\ufffd" in text:
+        corruption = find_text_corruption(text)
+        if corruption:
             print("FAIL utf8 files")
-            print(f"{path.relative_to(ROOT)}: contains replacement character")
+            print(f"{path.relative_to(ROOT)}: {corruption}")
             return False
     print("PASS utf8 files")
     return True
+
+
+def find_text_corruption(text: str) -> str | None:
+    for label, pattern in TEXT_CORRUPTION_PATTERNS:
+        if pattern.search(text):
+            return f"contains {label}"
+    return None
 
 
 def check_json_files() -> bool:
@@ -140,11 +182,61 @@ def scan_sensitive_patterns() -> bool:
     return True
 
 
+def check_build_evaluate_pipeline() -> bool:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_root = Path(temp_dir)
+        built_package = temp_root / "built-package.json"
+        evaluated_package = temp_root / "evaluated-package.json"
+        if not run_to_file(
+            [sys.executable, "scripts/build_mock_package.py"],
+            built_package,
+            "build mock package",
+        ):
+            return False
+        if not run_to_file(
+            [sys.executable, "scripts/evaluate_mock_package.py", str(built_package)],
+            evaluated_package,
+            "evaluate mock package",
+        ):
+            return False
+        pipeline_checks = [
+            (
+                [
+                    sys.executable,
+                    "scripts/validate_evidence_package.py",
+                    str(evaluated_package),
+                ],
+                "built package validation",
+            ),
+            (
+                [
+                    sys.executable,
+                    "scripts/render_mock_report.py",
+                    str(evaluated_package),
+                ],
+                "render built mock report",
+            ),
+            (
+                [
+                    sys.executable,
+                    "scripts/render_evidence_index.py",
+                    str(evaluated_package),
+                ],
+                "render built evidence index",
+            ),
+        ]
+        for command, name in pipeline_checks:
+            if not run_subprocess(command, name):
+                return False
+    return True
+
+
 def main() -> int:
     checks = [
         check_utf8_files,
         check_json_files,
         check_jsonl_files,
+        check_build_evaluate_pipeline,
         lambda: run_subprocess(
             [
                 sys.executable,

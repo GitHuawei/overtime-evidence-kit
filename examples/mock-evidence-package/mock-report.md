@@ -21,7 +21,7 @@
 - Evidence strength: strong
 - Quality gate: pass
 - Risk flags: none
-- Review action: 人工复核聊天时间线与 mock Git 记录是否一致。
+- Review action: 复核 mock 时间线与多来源证据是否一致。
 - Summary: 订单系统示例接口联调与 mock 验证结果整理。
 - Evidence:
   - evd-mock-chat-001: wechat, mock-wechat-export/messages.jsonl:1, locator `示例接口联调`
@@ -36,8 +36,8 @@
 - Duration minutes: 90
 - Evidence strength: medium
 - Quality gate: needs_review
-- Risk flags: weak_result_evidence
-- Review action: 补充 mock 系统截图或更多结果确认记录。
+- Risk flags: single_source_only
+- Review action: 补充另一类 mock 来源，例如 Git、群聊或系统截图索引。
 - Summary: 客服后台示例线上问题排查与 mock 告警恢复确认。
 - Evidence:
   - evd-mock-chat-003: group_chat, mock-wechat-export/messages.jsonl:3, locator `mock 工单列表`
@@ -52,7 +52,7 @@
 - Evidence strength: strong
 - Quality gate: pass
 - Risk flags: none
-- Review action: 复核发布观察记录与 mock Git 记录是否对应。
+- Review action: 复核 mock 时间线与多来源证据是否一致。
 - Summary: BI 报表服务 mock 发布夜观察与示例问题处理。
 - Evidence:
   - evd-mock-chat-005: group_chat, mock-wechat-export/messages.jsonl:5, locator `观察 mock 指标`
@@ -65,7 +65,7 @@
 - Work date: 2026-02-21
 - Time: 2026-02-21T10:00:00+08:00 to 2026-02-21T12:30:00+08:00
 - Duration minutes: 150
-- Evidence strength: medium
+- Evidence strength: strong
 - Quality gate: needs_review
 - Risk flags: manual_review_required
 - Review action: 人工确认休息日任务来源和处理结果是否足够。

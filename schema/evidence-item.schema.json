@@ -31,7 +31,17 @@
     "senderRole": { "type": "string", "minLength": 1 },
     "sourceQuote": { "type": "string", "minLength": 1 },
     "quickLocator": { "type": "string", "minLength": 1 },
-    "redactionLevel": { "type": "string", "enum": ["mock", "redacted", "public"] }
+    "redactionLevel": { "type": "string", "enum": ["mock", "redacted", "public"] },
+    "evidenceRole": {
+      "type": "string",
+      "enum": [
+        "task_source",
+        "work_process",
+        "work_result",
+        "git_output",
+        "release_coordination",
+        "review_note"
+      ]
+    }
   }
 }
-
