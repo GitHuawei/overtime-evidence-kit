@@ -143,3 +143,13 @@ Validator 不能：
 - 判断公司是否违法。
 - 判断材料是否足以胜诉。
 - 替代律师、仲裁委、法院或主管机关。
+
+## 公开输出一致性
+
+`python scripts/check_all.py` 还会检查：
+
+- `mock-report.md` 与 `render_mock_report.py` 输出一致。
+- `mock-evidence-index.csv` 与 `render_evidence_index.py` 输出一致。
+- 文本不含 UTF-8 损坏、连续问号或明显 mojibake。
+
+如果检查失败，应重新运行 renderer，用 UTF-8 安全方式写入示例文件。

@@ -85,6 +85,23 @@ python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
 ```
 
+## Example Output
+
+当前 mock 月份公开输出摘要：
+
+- Included events: 4
+- Evidence items: 11
+- Excluded candidates: 3
+- Quality gates: `pass: 2`, `needs_review: 2`
+- Evidence strength: `strong: 3`, `medium: 1`
+
+完整输出：
+
+- [Mock report](examples/mock-evidence-package/mock-report.md)
+- [Evidence index CSV](examples/mock-evidence-package/mock-evidence-index.csv)
+
+公开输出只展示结构化摘要、证据定位和复核提示，不输出完整聊天原文、录音转写、源码、真实隐私或法律结论。
+
 ## Build package from mock inputs
 
 从 mock source 重新构建 package：
@@ -150,6 +167,7 @@ tests/      单元测试
 - [输入适配器](docs/input-adapters.md)
 - [package builder](docs/package-builder.md)
 - [rules engine](docs/rules-engine.md)
+- [公开输出字段白名单](docs/public-outputs.md)
 - [validator 规则](docs/validation-rules.md)
 - [隐私与脱敏原则](docs/privacy-and-redaction.md)
 - [服务边界](docs/service-boundary.md)

@@ -231,6 +231,43 @@ def check_build_evaluate_pipeline() -> bool:
     return True
 
 
+def check_committed_outputs() -> bool:
+    samples = [
+        (
+            [
+                sys.executable,
+                "scripts/render_mock_report.py",
+                "examples/mock-evidence-package/package.json",
+            ],
+            ROOT / "examples" / "mock-evidence-package" / "mock-report.md",
+            "committed mock report",
+        ),
+        (
+            [
+                sys.executable,
+                "scripts/render_evidence_index.py",
+                "examples/mock-evidence-package/package.json",
+            ],
+            ROOT / "examples" / "mock-evidence-package" / "mock-evidence-index.csv",
+            "committed evidence index",
+        ),
+    ]
+    for command, expected_path, name in samples:
+        result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+        if result.returncode != 0:
+            print(f"FAIL {name}")
+            if result.stderr:
+                print(result.stderr, end="", file=sys.stderr)
+            return False
+        expected = expected_path.read_text(encoding="utf-8")
+        if result.stdout != expected:
+            print(f"FAIL {name}")
+            print(f"{expected_path.relative_to(ROOT)} is out of date; regenerate sample output")
+            return False
+        print(f"PASS {name}")
+    return True
+
+
 def main() -> int:
     checks = [
         check_utf8_files,
@@ -261,6 +298,7 @@ def main() -> int:
             ],
             "render evidence index",
         ),
+        check_committed_outputs,
         lambda: run_subprocess(
             [
                 sys.executable,

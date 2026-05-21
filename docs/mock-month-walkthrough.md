@@ -18,6 +18,19 @@
 4. 回到 `messages.jsonl` 或 `git-log.json` 查 mock source。
 5. 查看 `excludedCandidates` 理解保守口径。
 
+## 公开输出如何阅读
+
+`mock-report.md` 面向 GitHub 阅读场景，包含：
+
+- `Summary`：月份范围、事件数量、证据数量、质量门禁分布和证据强度分布。
+- `Event Overview`：事件表格，适合快速扫描。
+- `Evidence Index Preview`：每个事件关联的证据项简表。
+- `Included Events`：逐个事件的摘要、时间、风险、复核动作和证据列表。
+- `Review Notes`：需要人工复核的事件和原因。
+- `Boundaries`：mock-only 与非法律意见提醒。
+
+`mock-evidence-index.csv` 面向证据定位，包含 event 类型、日期和 source 行号，适合用表格工具快速筛选。它不包含完整 `sourceQuote`。
+
 ## Included events
 
 ### evt-mock-weekday-001
@@ -85,6 +98,12 @@ python scripts/check_all.py
 python scripts/validate_evidence_package.py examples/mock-evidence-package/package.json
 python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
+```
+
+如果修改 package 后需要更新示例输出，应使用 renderer 重新生成，并运行：
+
+```powershell
+python scripts/check_all.py
 ```
 
 ## 重要提醒

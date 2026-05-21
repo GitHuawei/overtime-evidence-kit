@@ -29,6 +29,11 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertIn("pkg-mock-2026-02", report)
         self.assertIn(MOCK_ONLY_NOTICE, report)
         self.assertIn("## Excluded Candidates", report)
+        self.assertIn("## Summary", report)
+        self.assertIn("## Event Overview", report)
+        self.assertIn("## Review Notes", report)
+        self.assertIn("- Quality gates:", report)
+        self.assertIn("- Evidence strength:", report)
 
     def test_report_contains_all_event_ids(self):
         data = load_mock_package()
@@ -41,18 +46,38 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertIsNone(re.search(r"(?<!\d)1[3-9]\d{9}(?!\d)", report))
         self.assertIsNone(re.search(r"\b\d{17}[\dXx]\b", report))
 
+    def test_report_does_not_emit_full_source_quotes(self):
+        data = load_mock_package()
+        report = render_report(data)
+        for item in data["evidenceItems"]:
+            self.assertNotIn(item["sourceQuote"], report)
+        self.assertIn("quickLocator", report)
+
     def test_evidence_index_header_and_row_count(self):
         data = load_mock_package()
         csv_text = render_index(data)
         rows = list(csv.DictReader(io.StringIO(csv_text)))
         self.assertEqual(csv_text.splitlines()[0], ",".join(CSV_FIELDS))
         self.assertEqual(len(rows), len(data["evidenceItems"]))
+        self.assertIn("eventType", rows[0])
+        self.assertIn("workDate", rows[0])
 
     def test_evidence_index_can_be_read_as_csv(self):
         data = load_mock_package()
         rows = list(csv.DictReader(io.StringIO(render_index(data))))
         self.assertEqual(set(rows[0].keys()), set(CSV_FIELDS))
         self.assertTrue(all(row["redactionLevel"] == "mock" for row in rows))
+
+    def test_renderers_match_committed_samples(self):
+        data = load_mock_package()
+        expected_report = (ROOT / "examples" / "mock-evidence-package" / "mock-report.md").read_text(
+            encoding="utf-8"
+        )
+        expected_index = (
+            ROOT / "examples" / "mock-evidence-package" / "mock-evidence-index.csv"
+        ).read_text(encoding="utf-8")
+        self.assertEqual(render_report(data), expected_report)
+        self.assertEqual(render_index(data), expected_index)
 
 
 if __name__ == "__main__":
