@@ -1,73 +1,66 @@
 # 完整 mock 月份 walkthrough
 
+本文档帮助中文用户理解仓库内的 fictional mock 月份样例。所有数据都是虚构数据，只用于理解结构和本地 demo，不代表真实案件，也不提供法律意见。
+
 ## 文件关系
 
-- `examples/mock-wechat-export/messages.jsonl`：mock 聊天输入。
-- `examples/mock-git-log/git-log.json`：mock Git 输入。
-- `examples/mock-evidence-package/package.json`：整理后的结构化证据包。
-- `examples/mock-evidence-package/mock-report.md`：人读摘要。
-- `examples/mock-evidence-package/mock-evidence-index.csv`：证据索引。
+- `examples/mock-wechat-export/messages.jsonl`：mock chat source。
+- `examples/mock-git-log/git-log.json`：mock Git source。
+- `examples/mock-event-drafts/events.json`：mock event drafts。
+- `examples/mock-evidence-package/package.json`：committed mock evidence package。
+- `examples/mock-evidence-package/mock-report.md`：committed Markdown report。
+- `examples/mock-evidence-package/mock-evidence-index.csv`：committed CSV evidence index。
+- `outputs/demo/`：运行 `python scripts/run_demo.py` 后生成的 demo 输出目录。
 
-这些文件全部是虚构数据，只用于理解结构。
+## 推荐阅读顺序
 
-## 建议阅读顺序
+1. 先读 `examples/mock-evidence-package/mock-report.md`，了解报告结构。
+2. 再读 `examples/mock-evidence-package/mock-evidence-index.csv`，了解证据索引字段。
+3. 查看 `examples/mock-evidence-package/package.json` 的 `events` 和 `evidenceItems`。
+4. 回到 `examples/mock-wechat-export/messages.jsonl` 和 `examples/mock-git-log/git-log.json`，理解 mock source 如何映射到 evidence item。
+5. 查看 `excludedCandidates`，理解为什么有些候选线索没有纳入 included events。
 
-1. 先读 `mock-report.md`，了解月份摘要。
-2. 再读 `package.json` 的 `events`。
-3. 查看 `evidenceItems` 如何引用事件。
-4. 回到 `messages.jsonl` 或 `git-log.json` 查 mock source。
-5. 查看 `excludedCandidates` 理解保守口径。
+## 一条命令 demo
+
+```powershell
+python scripts/run_demo.py
+```
+
+demo 会把生成物写入：
+
+```text
+outputs/demo/
+```
+
+生成文件：
+
+- `outputs/demo/package.json`
+- `outputs/demo/mock-report.md`
+- `outputs/demo/mock-evidence-index.csv`
+
+`outputs/demo/` 已被 `.gitignore` 忽略，不应提交。
 
 ## 公开输出如何阅读
 
 `mock-report.md` 面向 GitHub 阅读场景，包含：
 
-- `Summary`：月份范围、事件数量、证据数量、质量门禁分布和证据强度分布。
+- `Summary`：月份范围、事件数量、证据数量、质量门分布和证据强度分布。
 - `Event Overview`：事件表格，适合快速扫描。
 - `Evidence Index Preview`：每个事件关联的证据项简表。
 - `Included Events`：逐个事件的摘要、时间、风险、复核动作和证据列表。
-- `Review Notes`：需要人工复核的事件和原因。
+- `Review Notes`：需要人工复核的 mock events 和原因。
 - `Boundaries`：mock-only 与非法律意见提醒。
 
-`mock-evidence-index.csv` 面向证据定位，包含 event 类型、日期和 source 行号，适合用表格工具快速筛选。它不包含完整 `sourceQuote`。
+`mock-evidence-index.csv` 面向证据定位，包含 event 类型、日期、source 文件名和 source 行号。它不包含完整 `sourceQuote`。
 
-## Included events
+## 当前 included events
 
-### evt-mock-weekday-001
+- `evt-mock-weekday-001`：weekday overtime mock event，证据强度为 `strong`，质量门为 `pass`。
+- `evt-mock-weekday-002`：weekday overtime mock event，证据强度为 `medium`，质量门为 `needs_review`。
+- `evt-mock-release-001`：release night mock event，证据强度为 `strong`，质量门为 `pass`。
+- `evt-mock-rest-001`：rest day task mock event，证据强度为 `strong`，质量门为 `needs_review`。
 
-- 类型：`weekday_overtime`。
-- 场景：订单系统示例接口联调。
-- 证据构成：2 条聊天证据，1 条 Git 证据。
-- 证据强度：`strong`。
-- 风险标记：无。
-- 复核动作：确认聊天时间线与 mock Git 记录一致。
-
-### evt-mock-weekday-002
-
-- 类型：`weekday_overtime`。
-- 场景：客服后台示例线上问题排查。
-- 证据构成：2 条群聊证据。
-- 证据强度：`medium`。
-- 风险标记：`weak_result_evidence`。
-- 复核动作：补充 mock 系统截图或更多结果确认记录。
-
-### evt-mock-release-001
-
-- 类型：`release_night`。
-- 场景：BI 报表服务 mock 发布夜观察。
-- 证据构成：2 条群聊证据，1 条 Git 证据。
-- 证据强度：`strong`。
-- 风险标记：无。
-- 复核动作：复核发布观察记录与 mock Git 记录是否对应。
-
-### evt-mock-rest-001
-
-- 类型：`rest_day_task`。
-- 场景：休息日 mock 数据修复任务。
-- 证据构成：2 条聊天证据，1 条 Git 证据。
-- 证据强度：`medium`。
-- 风险标记：`manual_review_required`。
-- 复核动作：人工确认休息日任务来源和处理结果是否足够。
+这些事件只是结构示例，不代表真实工作安排、真实项目或真实案件。
 
 ## Excluded candidates 的意义
 
@@ -85,27 +78,21 @@
 
 1. 查看 `eventId`，确认它属于 `evt-mock-weekday-001`。
 2. 查看 `sourceFileName`，定位到 `mock-wechat-export/messages.jsonl`。
-3. 查看 `sourceRowNum`，定位到第 1 行。
-4. 查看 `messageId`，确认第 1 行是 `mock-msg-001`。
-5. 查看 `quickLocator`，确认它是 `sourceQuote` 的子串。
+3. 查看 `sourceRowNum`，定位到对应 source 行。
+4. 查看 `messageId` 和 `quickLocator`，确认定位信息。
 
-Git 证据类似，只是 `messageId` 使用 `mock-` commit 标识。
+Git evidence item 类似，只是 `messageId` 使用 `mock-` commit 标识。
 
-## 运行命令
+## 常用命令
 
 ```powershell
+python scripts/run_demo.py
 python scripts/check_all.py
 python scripts/validate_evidence_package.py examples/mock-evidence-package/package.json
 python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
 ```
 
-如果修改 package 后需要更新示例输出，应使用 renderer 重新生成，并运行：
-
-```powershell
-python scripts/check_all.py
-```
-
 ## 重要提醒
 
-该月份只是开源预览样例，不代表法律结论，也不应替换为真实材料后提交到公开仓库。
+本仓库只接受 fictional mock data。不要把真实聊天、真实 Git、真实录音、真实公司名、人名、项目名、金额、地址、手机号或任何可识别真实案件的信息提交到公开仓库。

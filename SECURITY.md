@@ -1,47 +1,47 @@
 # Security Policy
 
-## Supported Scope
+## 支持范围
 
-The supported branch for this Release Candidate is `master`.
+当前支持范围是 `master` 分支上的 `v0.1.0 Release Candidate`。
 
-Security and privacy boundary issues include:
+安全和隐私边界问题包括：
 
-- A script, document, test, or template that could allow real private information to be committed.
-- A validator or quality gate that misses obvious sensitive patterns.
-- A public output renderer that exposes raw source material instead of safe summaries.
-- CI behavior that diverges from `python scripts/check_all.py`.
+- 脚本、文档、测试或模板可能允许真实隐私信息进入仓库。
+- validator 或质量门漏掉明显敏感模式。
+- public output renderer 输出原始材料，而不是安全摘要。
+- CI 与 `python scripts/check_all.py` 行为不一致。
 
-## Do Not Publicly Submit Sensitive Information
+## 不要公开提交敏感信息
 
-Do not include real case material in issues, pull requests, discussions, commits, comments, attachments, or screenshots.
+不要在 issue、PR、discussion、commit、comment、附件或截图中包含真实案件材料。
 
-Never submit:
+永远不要提交：
 
-- Real WeChat chats, group chats, screenshots, exports, or message IDs.
-- Real Git commits, repository names, branch names, source code, or commit hashes.
-- Real recordings, transcripts, meeting notes, or file names.
-- Real company names, person names, project names, client names, addresses, phone numbers, amounts, contract details, salaries, or identifiers.
-- Any details that could identify a real workplace, dispute, customer, project, or person.
+- 真实微信聊天、群聊、截图、导出记录或 message ID。
+- 真实 Git commit、仓库名、分支名、源码或 commit hash。
+- 真实录音、转写、会议纪要或文件名。
+- 真实公司名、人名、项目名、客户名、地址、手机号、合同、工资、金额或身份标识。
+- 任何能够识别真实工作场所、争议、客户、项目或个人的信息组合。
 
-Use fictional mock data and `mock-*` identifiers when describing a problem.
+请使用 fictional mock data 和 `mock-*` 标识描述问题。
 
-## Reporting a Vulnerability
+## 报告方式
 
-Use GitHub Security Advisories or another private channel for security-sensitive reports. Keep the report mock-only.
+如发现安全或隐私边界问题，请通过 GitHub Security Advisories 或其他私下渠道报告。报告也必须保持 mock-only。
 
-Include:
+建议包含：
 
-- Affected file or behavior.
-- Fictional reproduction steps.
-- Expected behavior.
-- Actual behavior.
-- Why the issue could create a privacy or release-readiness risk.
+- 受影响文件或行为。
+- fictional reproduction steps。
+- 期望行为。
+- 实际行为。
+- 为什么它会造成隐私或 release readiness 风险。
 
-Do not attach real evidence or private material.
+不要附加真实证据或私有材料。
 
-## Handling Principles
+## 处理原则
 
-- Privacy boundary fixes take priority.
-- Fixes should include tests or quality-gate coverage when practical.
-- Public outputs must remain summaries and indexes, not raw evidence dumps.
-- This project does not provide legal advice or promise legal outcomes.
+- 隐私边界修复优先。
+- 修复应尽量包含测试或质量门覆盖。
+- public outputs 必须保持摘要和索引形式，不输出原始证据。
+- 本项目不提供法律意见，不承诺法律结果。

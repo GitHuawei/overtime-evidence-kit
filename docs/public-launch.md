@@ -1,76 +1,78 @@
 # Public Launch Notes
 
-This document prepares `overtime-evidence-kit` for a controlled public launch. It is public-safe documentation only and does not create a GitHub Release or tag.
+本文档用于准备 `overtime-evidence-kit` 的受控公开发布。它只是公开安全的发布准备说明，不会创建 GitHub Release，也不会创建 tag。
 
-## Launch Readiness Summary
+## 发布准备摘要
 
-Current status: `v0.1.0 Release Candidate`.
+当前状态：`v0.1.0 Release Candidate`。
 
-Ready to show publicly:
+可以公开展示：
 
-- Mock-only evidence package structure.
-- JSON Schema validation.
-- Local validator.
-- Mock input builder.
-- Rules engine for fictional events.
-- Markdown report renderer.
-- CSV evidence index renderer.
-- CI-backed quality gate.
-- Governance, security, contribution, issue, and PR templates.
+- mock-only evidence package 结构。
+- JSON Schema validation。
+- local validator。
+- mock input builder。
+- rules engine。
+- Markdown report renderer。
+- CSV evidence index renderer。
+- CI-backed quality gate。
+- 贡献、安全、issue template、PR template 和 release checklist。
 
-Not included:
+不包含：
 
-- Real WeChat import.
-- Real Git scanning.
-- Real audio or transcript handling.
-- SaaS hosting or account workflows.
-- Customer upload workflows.
-- Paid service delivery material.
-- Legal advice, legal conclusions, or outcome guarantees.
+- 真实微信导入。
+- 真实 Git 扫描。
+- 真实录音或转写处理。
+- SaaS、账号或上传工作流。
+- 客户交付流程、paid pilot 材料或收费 SOP。
+- 法律意见、法律结论或结果承诺。
 
-## Pre-public Checklist
+## 公开前检查
 
-Before announcing the repository:
+公开或对外介绍前确认：
 
-- Run `python scripts/check_all.py`.
-- Run `python -m unittest discover -s tests -p "test_*.py"`.
-- Run `git diff --check`.
-- Confirm `docs/plans/` is not staged or committed.
-- Confirm README states mock-only boundaries near the top.
-- Confirm `CHANGELOG.md` includes known limitations.
-- Confirm issue and PR templates warn against real evidence.
-- Confirm no GitHub Release or tag is created unless explicitly approved.
+- 已运行 `python scripts/check_all.py`。
+- 已运行 `python -m unittest discover -s tests -p "test_*.py"`。
+- 已运行 `git diff --check`。
+- `docs/plans/` 未暂存、未提交。
+- README 首屏清楚说明 mock-only。
+- `docs/demo.md` 说明 `python scripts/run_demo.py` 和 `outputs/demo/`。
+- `CHANGELOG.md` 包含 known limitations。
+- issue template 和 PR template 提醒不要提交真实证据。
+- 未创建 GitHub Release 或 tag，除非维护者另行明确批准。
 
-## Repository Description Suggestion
+## GitHub description 建议
 
 ```text
 Mock-only toolkit for structuring overtime evidence packages with schemas, validators, renderers, and release checks.
 ```
 
-## Short Public Introduction
+中文解释：这是一个 mock-only 工具包，用于演示加班证据包如何结构化、校验和渲染，不处理真实材料。
+
+## 公开介绍文案
 
 ```text
-overtime-evidence-kit is a mock-only open-source toolkit for exploring how overtime-related evidence packages can be structured, validated, and rendered locally. It ships fictional sample data, schemas, validators, renderers, and release checks. It does not process real evidence and does not provide legal advice.
+overtime-evidence-kit 是一个 mock-only 开源工具包，用于探索加班证据包的结构化、校验和本地渲染流程。它包含虚构样例数据、JSON Schema、validator、rules engine、Markdown report renderer、CSV evidence index renderer 和 release checks。它不处理真实证据，也不提供法律意见。
 ```
 
-## What Not to Say Publicly
+## 不要公开承诺的内容
 
-Do not claim that this project:
+不要声称本项目：
 
-- Handles real disputes.
-- Imports real chats, Git repositories, recordings, or transcripts.
-- Produces legal conclusions.
-- Predicts negotiation, arbitration, litigation, or enforcement outcomes.
-- Provides a paid service workflow or private delivery procedure.
-- Accepts private evidence in issues, pull requests, discussions, or attachments.
+- 能处理真实案件。
+- 能导入真实聊天、Git 仓库、录音或转写。
+- 能生成法律结论。
+- 能预测协商、仲裁、诉讼或执行结果。
+- 提供 paid pilot、客户交付流程或私有服务 SOP。
+- 接受在 issue、PR、discussion 或附件中提交私有证据。
 
-## Post-launch Monitoring Checklist
+## post-launch monitoring checklist
 
-After making the repository public or announcing it:
+公开后关注：
 
-- Watch new issues for real evidence or private information.
-- Close or redact reports that include identifiable material.
-- Point contributors to the issue templates and mock-only boundary.
-- Confirm CI stays green on `master`.
-- Monitor whether README wording causes confusion about real evidence support.
-- Keep GitHub Release and tag creation as a separate maintainer decision.
+- 新 issue 是否包含真实证据或隐私信息。
+- PR 是否引入真实聊天、真实 Git、真实录音或可识别案件信息。
+- CI 是否在 `master` 上保持通过。
+- README 是否让用户误以为可以提交真实材料。
+- issue template 和 PR template 是否足够清楚。
+- GitHub Release 和 tag 是否仍作为单独维护者决策处理。

@@ -1,18 +1,20 @@
 # Repository Settings
 
-This document suggests GitHub repository settings for a controlled public launch. It is documentation only and does not require API access.
+本文档提供 GitHub repository settings 建议。它只是文档说明，不需要 API access，也不会修改远程仓库设置。
 
 ## Description
 
-Suggested repository description:
+建议 GitHub description：
 
 ```text
 Mock-only toolkit for structuring overtime evidence packages with schemas, validators, renderers, and release checks.
 ```
 
+中文解释：该描述强调本项目是 mock-only，不暗示真实案件处理能力或法律服务。
+
 ## Topics
 
-Suggested topics:
+建议 topics：
 
 ```text
 overtime
@@ -26,54 +28,54 @@ python
 open-source
 ```
 
-Avoid topics that imply legal advice, production evidence handling, or official dispute resolution.
+避免使用会暗示法律意见、生产级真实证据处理或官方争议解决能力的 topics。
 
 ## Homepage
 
-Recommended setting: leave blank unless a stable public documentation page exists.
+建议：保持为空，除非已经有稳定公开文档站点。
 
 ## Issues
 
-Recommended setting: enable issues only with the existing issue templates visible.
+建议：开启 issues，但必须保留现有 issue templates。
 
-Maintainers should close or edit issues that include real evidence, private data, or identifiable case details.
+维护者应关闭或编辑包含真实证据、隐私数据、可识别案件信息的 issue。
 
 ## Discussions
 
-Recommended setting: keep discussions disabled until moderation expectations are clear.
+建议：在明确 moderation 预期前保持关闭。
 
-If discussions are enabled later, pin a mock-only warning and do not allow private evidence review requests.
+如果未来开启 discussions，应置顶 mock-only 警告，并禁止私有证据审查请求。
 
 ## Pull Requests
 
-Recommended setting: keep pull requests open to public contributors, with the PR template enabled.
+建议：允许公开 PR，但保留 PR template。
 
-Require contributors to confirm:
+PR 必须确认：
 
-- Only fictional mock data is included.
-- No real chats, Git data, recordings, identities, organizations, addresses, phone numbers, amounts, or case details are included.
-- No legal conclusions or outcome promises are added.
+- 只包含 fictional mock data。
+- 不包含真实聊天、真实 Git、真实录音、真实身份、真实组织、真实地址、真实手机号、真实金额或真实案件细节。
+- 不加入法律结论或结果承诺。
 
 ## Branch Protection
 
-Suggested for `master` when more contributors are added:
+当协作者增加后，建议为 `master` 设置：
 
-- Require CI to pass.
-- Require review before merge.
-- Block force pushes.
-- Prefer linear history if maintainers want simple release review.
+- 要求 CI 通过。
+- 要求 review 后合并。
+- 禁止 force push。
+- 如需简单 release review，可优先保持线性历史。
 
 ## Security
 
-Recommended settings:
+建议：
 
-- Enable GitHub Security Advisories.
-- Keep `SECURITY.md` visible.
-- Ask reporters to use fictional mock reproduction steps.
-- Do not request real evidence in public or private reports.
+- 开启 GitHub Security Advisories。
+- 保持 `SECURITY.md` 可见。
+- 要求报告者只使用 fictional mock reproduction steps。
+- 不在公开或私下报告中索要真实证据。
 
 ## Releases and Tags
 
-Do not create a GitHub Release or tag until the maintainer explicitly decides to do so.
+不要创建 GitHub Release 或 tag，除非维护者明确决定。
 
-When a release is approved, use `CHANGELOG.md` as the release-note base and keep known limitations visible.
+如果未来批准 release，请以 `CHANGELOG.md` 为 release notes 基础，并保留 known limitations。
