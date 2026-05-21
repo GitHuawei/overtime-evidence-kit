@@ -24,6 +24,13 @@ class ValidateEvidencePackageTest(unittest.TestCase):
         result = validate_package(load_mock_package())
         self.assertEqual(result.errors, [])
 
+    def test_mock_package_contains_preview_month_shape(self):
+        data = load_mock_package()
+        self.assertEqual(len(data["events"]), 4)
+        self.assertEqual(len(data["excludedCandidates"]), 3)
+        covered_event_ids = {item["eventId"] for item in data["evidenceItems"]}
+        self.assertEqual({event["eventId"] for event in data["events"]}, covered_event_ids)
+
     def test_missing_event_field_fails_schema_validation(self):
         data = load_mock_package()
         del data["events"][0]["workDate"]
@@ -92,6 +99,59 @@ class ValidateEvidencePackageTest(unittest.TestCase):
         result = validate_package(data)
         self.assertIn("$.events[0].durationMinutes must equal 150", result.errors)
 
+    def test_period_start_must_not_be_after_period_end(self):
+        data = load_mock_package()
+        data["periodStart"] = "2026-03-01"
+        data["periodEnd"] = "2026-02-01"
+        result = validate_package(data)
+        self.assertIn(
+            "$.periodStart must be earlier than or equal to periodEnd",
+            result.errors,
+        )
+
+    def test_event_work_date_must_be_within_period(self):
+        data = load_mock_package()
+        data["events"][0]["workDate"] = "2026-03-01"
+        result = validate_package(data)
+        self.assertIn("$.events[0].workDate must be within package period", result.errors)
+
+    def test_unknown_risk_flag_fails(self):
+        data = load_mock_package()
+        data["events"][0]["riskFlags"] = ["mock_unknown_risk"]
+        result = validate_package(data)
+        self.assertIn(
+            "$.events[0].riskFlags[0] is not an allowed risk flag: mock_unknown_risk",
+            result.errors,
+        )
+
+    def test_empty_excluded_reason_fails(self):
+        data = load_mock_package()
+        data["excludedCandidates"][0]["reason"] = "  "
+        result = validate_package(data)
+        self.assertIn(
+            "$.excludedCandidates[0].reason must explain why the candidate is excluded",
+            result.errors,
+        )
+
+    def test_far_evidence_timestamp_warns(self):
+        data = load_mock_package()
+        data["evidenceItems"][0]["timestamp"] = "2026-02-10T19:12:00+08:00"
+        result = validate_package(data)
+        self.assertEqual(result.errors, [])
+        self.assertIn(
+            "$.evidenceItems[0].timestamp is far from linked event time range",
+            result.warnings,
+        )
+
+    def test_jsonl_source_row_num_must_match_message_id(self):
+        data = load_mock_package()
+        data["evidenceItems"][0]["messageId"] = "mock-msg-mismatch"
+        result = validate_package(data)
+        self.assertIn(
+            "$.evidenceItems[0].sourceRowNum does not match source messageId",
+            result.errors,
+        )
+
     def test_each_event_must_have_evidence_coverage(self):
         data = load_mock_package()
         data["evidenceItems"] = [
@@ -101,7 +161,7 @@ class ValidateEvidencePackageTest(unittest.TestCase):
         ]
         result = validate_package(data)
         self.assertIn(
-            "$.events[1].eventId has no evidence coverage: evt-mock-release-001",
+            "$.events[2].eventId has no evidence coverage: evt-mock-release-001",
             result.errors,
         )
 

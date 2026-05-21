@@ -7,13 +7,24 @@ import json
 import re
 import sys
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCHEMA_DIR = ROOT / "schema"
+DEFAULT_SOURCE_ROOT = ROOT / "examples"
+
+ALLOWED_RISK_FLAGS = {
+    "missing_end_time",
+    "single_source_only",
+    "unclear_task_owner",
+    "sensitive_content_present",
+    "needs_legal_review",
+    "weak_result_evidence",
+    "manual_review_required",
+}
 
 REAL_COMMIT_RE = re.compile(r"(?<!mock-)\b[0-9a-f]{7,40}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)")
@@ -58,7 +69,9 @@ def load_schemas(schema_dir: Path = DEFAULT_SCHEMA_DIR) -> dict[str, dict[str, A
 
 
 def validate_package(
-    data: dict[str, Any], schema_dir: Path = DEFAULT_SCHEMA_DIR
+    data: dict[str, Any],
+    schema_dir: Path = DEFAULT_SCHEMA_DIR,
+    source_root: Path = DEFAULT_SOURCE_ROOT,
 ) -> ValidationResult:
     errors: list[str] = []
     warnings: list[str] = []
@@ -76,8 +89,13 @@ def validate_package(
         errors,
     )
     validate_references_and_locators(data, errors)
+    validate_package_period(data, errors)
     validate_event_timing(data, errors)
+    validate_risk_flags(data, errors)
+    validate_excluded_candidates(data, errors)
     validate_event_evidence_coverage(data, errors)
+    validate_evidence_timestamps(data, warnings)
+    validate_source_row_alignment(data, source_root, errors)
     validate_mock_only(data, errors, warnings)
 
     return ValidationResult(errors=errors, warnings=warnings)
@@ -277,6 +295,78 @@ def validate_event_timing(data: dict[str, Any], errors: list[str]) -> None:
                 )
 
 
+def validate_package_period(data: dict[str, Any], errors: list[str]) -> None:
+    period_start = data.get("periodStart")
+    period_end = data.get("periodEnd")
+    if not isinstance(period_start, str) or not isinstance(period_end, str):
+        return
+
+    start_date = parse_date(period_start)
+    end_date = parse_date(period_end)
+    if start_date is None or end_date is None:
+        return
+
+    if start_date > end_date:
+        errors.append("$.periodStart must be earlier than or equal to periodEnd")
+        return
+
+    events = data.get("events", [])
+    if not isinstance(events, list):
+        return
+    for index, event in enumerate(events):
+        if not isinstance(event, dict):
+            continue
+        work_date = event.get("workDate")
+        if not isinstance(work_date, str):
+            continue
+        parsed_work_date = parse_date(work_date)
+        if parsed_work_date is None:
+            continue
+        if parsed_work_date < start_date or parsed_work_date > end_date:
+            errors.append(f"$.events[{index}].workDate must be within package period")
+
+
+def parse_date(value: str) -> date | None:
+    try:
+        return date.fromisoformat(value)
+    except ValueError:
+        return None
+
+
+def validate_risk_flags(data: dict[str, Any], errors: list[str]) -> None:
+    events = data.get("events", [])
+    if not isinstance(events, list):
+        return
+    for event_index, event in enumerate(events):
+        if not isinstance(event, dict):
+            continue
+        risk_flags = event.get("riskFlags", [])
+        if not isinstance(risk_flags, list):
+            continue
+        for flag_index, flag in enumerate(risk_flags):
+            if not isinstance(flag, str):
+                continue
+            if flag not in ALLOWED_RISK_FLAGS:
+                errors.append(
+                    f"$.events[{event_index}].riskFlags[{flag_index}] "
+                    f"is not an allowed risk flag: {flag}"
+                )
+
+
+def validate_excluded_candidates(data: dict[str, Any], errors: list[str]) -> None:
+    candidates = data.get("excludedCandidates", [])
+    if not isinstance(candidates, list):
+        return
+    for index, candidate in enumerate(candidates):
+        if not isinstance(candidate, dict):
+            continue
+        reason = candidate.get("reason")
+        if not isinstance(reason, str) or len(reason.strip()) < 6:
+            errors.append(
+                f"$.excludedCandidates[{index}].reason must explain why the candidate is excluded"
+            )
+
+
 def validate_event_evidence_coverage(data: dict[str, Any], errors: list[str]) -> None:
     events = data.get("events", [])
     evidence_items = data.get("evidenceItems", [])
@@ -314,6 +404,98 @@ def validate_event_evidence_coverage(data: dict[str, Any], errors: list[str]) ->
                     f"$.events[{index}].evidenceStrength strong requires at least "
                     "2 evidence items from 2 source types"
                 )
+
+
+def validate_evidence_timestamps(data: dict[str, Any], warnings: list[str]) -> None:
+    events = data.get("events", [])
+    evidence_items = data.get("evidenceItems", [])
+    if not isinstance(events, list) or not isinstance(evidence_items, list):
+        return
+
+    event_ranges: dict[str, tuple[datetime, datetime]] = {}
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        event_id = event.get("eventId")
+        start = event.get("startTime")
+        end = event.get("endTime")
+        if not isinstance(event_id, str) or not isinstance(start, str) or not isinstance(end, str):
+            continue
+        start_dt = parse_datetime(start)
+        end_dt = parse_datetime(end)
+        if start_dt is not None and end_dt is not None:
+            event_ranges[event_id] = (start_dt, end_dt)
+
+    for index, evidence in enumerate(evidence_items):
+        if not isinstance(evidence, dict):
+            continue
+        event_id = evidence.get("eventId")
+        timestamp = evidence.get("timestamp")
+        if not isinstance(event_id, str) or not isinstance(timestamp, str):
+            continue
+        linked_range = event_ranges.get(event_id)
+        evidence_dt = parse_datetime(timestamp)
+        if linked_range is None or evidence_dt is None:
+            continue
+        lower_bound = linked_range[0] - timedelta(hours=24)
+        upper_bound = linked_range[1] + timedelta(hours=24)
+        if evidence_dt < lower_bound or evidence_dt > upper_bound:
+            warnings.append(
+                f"$.evidenceItems[{index}].timestamp is far from linked event time range"
+            )
+
+
+def validate_source_row_alignment(
+    data: dict[str, Any], source_root: Path, errors: list[str]
+) -> None:
+    evidence_items = data.get("evidenceItems", [])
+    if not isinstance(evidence_items, list):
+        return
+
+    jsonl_cache: dict[Path, list[dict[str, Any] | None]] = {}
+    for index, evidence in enumerate(evidence_items):
+        if not isinstance(evidence, dict):
+            continue
+        source_file_name = evidence.get("sourceFileName")
+        source_row_num = evidence.get("sourceRowNum")
+        message_id = evidence.get("messageId")
+        if not isinstance(source_file_name, str) or not source_file_name.endswith(".jsonl"):
+            continue
+        if not isinstance(source_row_num, int) or not isinstance(message_id, str):
+            continue
+
+        source_path = source_root / source_file_name
+        if source_path not in jsonl_cache:
+            try:
+                jsonl_cache[source_path] = load_jsonl(source_path)
+            except Exception as exc:
+                errors.append(f"$.evidenceItems[{index}].sourceFileName cannot be read: {exc}")
+                continue
+
+        rows = jsonl_cache[source_path]
+        row_index = source_row_num - 1
+        if row_index < 0 or row_index >= len(rows):
+            errors.append(f"$.evidenceItems[{index}].sourceRowNum does not exist")
+            continue
+
+        row = rows[row_index]
+        if not isinstance(row, dict) or row.get("messageId") != message_id:
+            errors.append(
+                f"$.evidenceItems[{index}].sourceRowNum does not match source messageId"
+            )
+
+
+def load_jsonl(path: Path) -> list[dict[str, Any] | None]:
+    rows: list[dict[str, Any] | None] = []
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            stripped = line.strip()
+            if not stripped:
+                rows.append(None)
+                continue
+            value = json.loads(stripped)
+            rows.append(value if isinstance(value, dict) else None)
+    return rows
 
 
 def validate_mock_only(

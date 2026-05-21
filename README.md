@@ -2,46 +2,49 @@
 
 程序员加班证据整理 SOP 与工具包。
 
-`overtime-evidence-kit` 面向技术岗位劳动者的证据整理场景，提供通用 SOP、证据包数据模型、mock 示例、基础校验器和 mock 报告渲染脚本。项目目标是帮助用户把分散材料整理成可追溯、可复核、可脱敏的材料包，再由用户决定是否咨询律师、协商、投诉或仲裁。
+`overtime-evidence-kit` 用于演示如何把技术岗位常见的聊天、群聊、Git、发布夜和休息日任务线索，整理成可追溯、可复核、可脱敏的 mock 证据包。它提供通用 SOP、JSON Schema、完整 mock 月份、validator、公开报告 renderer、证据索引 renderer 和一键检查脚本。
 
 ## 项目状态
 
-当前处于 Open Source Readiness Phase。
+当前处于 Open Source Preview Milestone。项目可以用于阅读、运行 mock 示例和参与早期设计讨论，但仍不处理真实案件材料。
 
 已经包含：
 
-- SOP 与证据包规格文档。
-- mock 微信导出、mock Git 日志、mock 证据包示例。
+- 完整 mock 月份示例。
 - JSON Schema 数据模型。
-- 本地 validator 与 mock report renderer。
+- Validator 和一键检查脚本。
+- Markdown mock report 与 CSV evidence index renderer。
 - GitHub Actions CI。
-- 贡献、安全、开源边界和路线图文档。
+- 开源边界、贡献、安全和路线图文档。
 
 尚未包含：
 
 - SaaS 服务。
-- 真实案件导入。
-- 完整法律文书生成。
-- 面向真实客户的交付流程。
+- 真实材料导入。
+- 真实 Git 仓库扫描。
+- 真实录音处理。
+- 法律意见生成。
+- 客户交付模板。
 
 ## 适用场景
 
 适合用于：
 
-- 学习如何组织技术岗位加班证据材料。
-- 基于 mock 数据理解证据项、事件和证据包之间的关系。
+- 学习技术岗位加班证据如何结构化。
+- 用 mock 数据理解事件、证据项、报告和索引的关系。
 - 在本地验证脱敏证据包结构是否满足基础规则。
-- 为开源工具、内部流程或教学材料提供安全的参考骨架。
+- 讨论开源证据包字段设计、质量门禁和 mock-only 边界。
 
 ## 不适用场景
 
 不适合用于：
 
+- 上传真实聊天记录到公开仓库。
 - 替代律师意见。
-- 承诺仲裁、诉讼、协商或投诉结果。
+- 承诺协商、投诉、仲裁或诉讼结果。
 - 自动认定任何单位违法。
-- 处理未脱敏真实聊天、真实 Git、真实录音、真实合同或真实工资流水。
-- 公开托管任何真实案件材料。
+- 处理未授权的他人隐私、客户数据、源码或商业秘密。
+- 托管真实案件材料。
 
 ## 隐私警告
 
@@ -54,16 +57,17 @@
 - 真实金额、地址、手机号、身份证号、合同、工资流水。
 - 任何可识别真实案件的信息或可反推真实案件事实的组合细节。
 
-mock 数据应满足：
-
-- 结构接近真实工作流，内容完全虚构。
-- commit hash 使用 `mock-` 前缀，例如 `mock-a1b2c3d`。
-- 人员、公司、项目和系统名称使用泛化名称。
-- 聊天内容只表达证据结构，不复用真实原句。
+mock 示例也不能由真实材料改写而来。日期、角色、项目、金额和事件组合本身也可能构成可识别信息，因此示例必须从结构层面重新虚构。
 
 ## 快速开始
 
-运行 mock 证据包校验：
+推荐先运行一键检查：
+
+```powershell
+python scripts/check_all.py
+```
+
+单独运行 validator：
 
 ```powershell
 python scripts/validate_evidence_package.py examples/mock-evidence-package/package.json
@@ -75,20 +79,31 @@ python scripts/validate_evidence_package.py examples/mock-evidence-package/packa
 python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 ```
 
-运行单元测试：
+渲染证据索引：
 
 ```powershell
-python -m unittest discover -s tests -p "test_*.py"
+python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
 ```
+
+## 完整 mock 月份示例
+
+入口：
+
+- [mock 月份 walkthrough](docs/mock-month-walkthrough.md)
+- [mock package](examples/mock-evidence-package/package.json)
+- [mock report](examples/mock-evidence-package/mock-report.md)
+- [mock evidence index](examples/mock-evidence-package/mock-evidence-index.csv)
+
+该示例只包含虚构数据，用于理解结构，不代表法律结论。
 
 ## 目录
 
 ```text
-docs/       SOP、输入清单、证据包规格、隐私、边界、路线图
+docs/       SOP、输入清单、证据包规格、隐私、边界、路线图和预览说明
 schema/     JSON Schema 数据模型
-examples/   mock 微信导出、mock Git 日志、mock 证据包
-scripts/    校验器与 mock 报告渲染脚本
-tests/      validator 单元测试
+examples/   mock 微信导出、mock Git 日志、mock 证据包和公开输出
+scripts/    validator、renderer 和一键检查脚本
+tests/      单元测试
 ```
 
 ## 核心流程
@@ -105,7 +120,10 @@ tests/      validator 单元测试
 ## 文档
 
 - [SOP](docs/SOP.md)
+- [适用场景](docs/use-cases.md)
+- [mock 月份 walkthrough](docs/mock-month-walkthrough.md)
 - [证据包规格](docs/evidence-package-spec.md)
+- [validator 规则](docs/validation-rules.md)
 - [隐私与脱敏原则](docs/privacy-and-redaction.md)
 - [服务边界](docs/service-boundary.md)
 - [开源边界](docs/open-source-boundary.md)

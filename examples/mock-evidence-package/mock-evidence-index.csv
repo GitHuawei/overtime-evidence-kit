@@ -1,5 +1,12 @@
-evidenceId,eventId,sourceType,sourceFileName,quickLocator
-evd-mock-chat-001,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,示例接口联调
-evd-mock-chat-002,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,mock 环境联调
-evd-mock-git-001,evt-mock-weekday-001,git,mock-git-log/git-log.json,mock-a1b2c3d
-evd-mock-chat-003,evt-mock-release-001,group_chat,mock-wechat-export/messages.jsonl,观察 mock 指标
+evidenceId,eventId,sourceType,sourceFileName,sourceRowNum,messageId,quickLocator,redactionLevel
+evd-mock-chat-005,evt-mock-release-001,group_chat,mock-wechat-export/messages.jsonl,5,mock-msg-005,观察 mock 指标,mock
+evd-mock-git-002,evt-mock-release-001,git,mock-git-log/git-log.json,3,mock-d4e5f6g,mock-d4e5f6g,mock
+evd-mock-chat-006,evt-mock-release-001,group_chat,mock-wechat-export/messages.jsonl,6,mock-msg-006,示例指标保持稳定,mock
+evd-mock-chat-007,evt-mock-rest-001,wechat,mock-wechat-export/messages.jsonl,7,mock-msg-007,mock 数据修复任务,mock
+evd-mock-git-003,evt-mock-rest-001,git,mock-git-log/git-log.json,4,mock-r7s8t9u,mock-r7s8t9u,mock
+evd-mock-chat-008,evt-mock-rest-001,wechat,mock-wechat-export/messages.jsonl,8,mock-msg-008,示例导入结果,mock
+evd-mock-chat-001,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,1,mock-msg-001,示例接口联调,mock
+evd-mock-git-001,evt-mock-weekday-001,git,mock-git-log/git-log.json,1,mock-a1b2c3d,mock-a1b2c3d,mock
+evd-mock-chat-002,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,2,mock-msg-002,mock 环境联调,mock
+evd-mock-chat-003,evt-mock-weekday-002,group_chat,mock-wechat-export/messages.jsonl,3,mock-msg-003,mock 工单列表,mock
+evd-mock-chat-004,evt-mock-weekday-002,group_chat,mock-wechat-export/messages.jsonl,4,mock-msg-004,示例告警数量,mock

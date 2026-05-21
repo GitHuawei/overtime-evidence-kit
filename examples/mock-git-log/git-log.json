@@ -11,6 +11,16 @@
     ]
   },
   {
+    "commit": "mock-b2c3d4e",
+    "authorRole": "员工-A",
+    "timestamp": "2026-02-06T20:40:00+08:00",
+    "repository": "mock-support-admin",
+    "summary": "mock: add support alert recovery check",
+    "changedFiles": [
+      "src/mock_support_alert.py"
+    ]
+  },
+  {
     "commit": "mock-d4e5f6g",
     "authorRole": "员工-A",
     "timestamp": "2026-02-11T22:10:00+08:00",
@@ -19,6 +29,16 @@
     "changedFiles": [
       "src/mock_report_guard.py"
     ]
+  },
+  {
+    "commit": "mock-r7s8t9u",
+    "authorRole": "员工-A",
+    "timestamp": "2026-02-21T11:50:00+08:00",
+    "repository": "mock-data-repair-tool",
+    "summary": "mock: repair sample import rows",
+    "changedFiles": [
+      "src/mock_data_repair.py",
+      "tests/test_mock_data_repair.py"
+    ]
   }
 ]
-
