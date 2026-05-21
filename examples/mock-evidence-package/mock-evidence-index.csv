@@ -1,4 +1,4 @@
-evidenceId,eventId,eventType,workDate,sourceType,sourceFileName,sourceRowNum,messageId,quickLocator,redactionLevel
+证据ID,事件ID,事件类型,日期,来源类型,来源文件,来源行号,消息ID,快速定位,脱敏级别
 evd-mock-chat-005,evt-mock-release-001,release_night,2026-02-11,group_chat,mock-wechat-export/messages.jsonl,5,mock-msg-005,观察 mock 指标,mock
 evd-mock-git-002,evt-mock-release-001,release_night,2026-02-11,git,mock-git-log/git-log.json,3,mock-d4e5f6g,mock-d4e5f6g,mock
 evd-mock-chat-006,evt-mock-release-001,release_night,2026-02-11,group_chat,mock-wechat-export/messages.jsonl,6,mock-msg-006,示例指标保持稳定,mock

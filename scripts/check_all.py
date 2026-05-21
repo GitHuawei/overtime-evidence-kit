@@ -418,9 +418,21 @@ def check_demo_run() -> bool:
         ):
             return False
         report = (output_dir / "mock-report.md").read_text(encoding="utf-8")
-        if "Mock-only notice" not in report or "sourceQuote" in report:
+        index_header = (output_dir / "mock-evidence-index.csv").read_text(
+            encoding="utf-8"
+        ).splitlines()[0]
+        expected_header = "证据ID,事件ID,事件类型,日期,来源类型,来源文件,来源行号,消息ID,快速定位,脱敏级别"
+        if (
+            "mock-only 提醒" not in report
+            or "## 摘要" not in report
+            or "## 事件概览" not in report
+            or "## 复核提示" not in report
+            or "## 边界说明" not in report
+            or "sourceQuote" in report
+            or index_header != expected_header
+        ):
             print("FAIL demo run")
-            print("demo report boundary text is missing or leaks internal fields")
+            print("demo public output localization check failed")
             return False
         if not package.get("events"):
             print("FAIL demo run")

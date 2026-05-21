@@ -11,8 +11,8 @@ from typing import Any
 
 
 MOCK_ONLY_NOTICE = (
-    "Mock-only notice: this report is generated from fictional sample data. "
-    "It is for structure review and does not provide legal advice."
+    "mock-only 提醒：本报告由完全虚构的样例数据生成，"
+    "只用于结构演示和本地验证，不提供法律意见。"
 )
 
 
@@ -39,13 +39,13 @@ def evidence_sort_key(item: dict[str, Any]) -> tuple[str, str]:
 def list_text(values: Any) -> str:
     if isinstance(values, list) and values:
         return ", ".join(str(value) for value in values)
-    return "none"
+    return "无"
 
 
 def distribution_text(events: list[dict[str, Any]], field: str) -> str:
     counter = Counter(str(event.get(field, "")) for event in events if event.get(field))
     if not counter:
-        return "none"
+        return "无"
     return ", ".join(f"{key}: {counter[key]}" for key in sorted(counter))
 
 
@@ -54,13 +54,13 @@ def linked_evidence_preview(
 ) -> str:
     items = sorted(evidence_by_event.get(event_id, []), key=evidence_sort_key)
     if not items:
-        return "none"
+        return "无"
     preview = [
         f"{item.get('evidenceId', '')} ({item.get('sourceType', '')})"
         for item in items[:3]
     ]
     if len(items) > 3:
-        preview.append(f"+{len(items) - 3} more")
+        preview.append(f"+{len(items) - 3} 项")
     return "; ".join(preview)
 
 
@@ -87,23 +87,23 @@ def render_report(data: dict[str, Any]) -> str:
     ]
 
     lines = [
-        f"# Mock Evidence Report: {data.get('packageId', '')}",
+        f"# Mock 加班证据报告：{data.get('packageId', '')}",
         "",
         f"> {MOCK_ONLY_NOTICE}",
         "",
-        "## Summary",
+        "## 摘要",
         "",
-        f"- Period: {data.get('periodStart', '')} to {data.get('periodEnd', '')}",
-        f"- Subject role: {data.get('subjectRole', '')}",
-        f"- Included events: {len(events)}",
-        f"- Evidence items: {evidence_count}",
-        f"- Excluded candidates: {len(excluded_candidates)}",
-        f"- Quality gates: {distribution_text(sorted_events, 'qualityGate')}",
-        f"- Evidence strength: {distribution_text(sorted_events, 'evidenceStrength')}",
+        f"- 期间：{data.get('periodStart', '')} 至 {data.get('periodEnd', '')}",
+        f"- 主体角色：{data.get('subjectRole', '')}",
+        f"- 纳入事件数：{len(events)}",
+        f"- 证据项数：{evidence_count}",
+        f"- 排除候选数：{len(excluded_candidates)}",
+        f"- 质量门：{distribution_text(sorted_events, 'qualityGate')}",
+        f"- 证据强度：{distribution_text(sorted_events, 'evidenceStrength')}",
         "",
-        "## Event Overview",
+        "## 事件概览",
         "",
-        "| Event ID | Type | Work date | Duration | Strength | Gate | Risks |",
+        "| 事件ID | 类型 | 日期 | 时长 | 强度 | 质量门 | 风险 |",
         "| --- | --- | --- | ---: | --- | --- | --- |",
     ]
 
@@ -115,7 +115,7 @@ def render_report(data: dict[str, Any]) -> str:
                     str(event.get("eventId", "")),
                     str(event.get("eventType", "")),
                     str(event.get("workDate", "")),
-                    f"{event.get('durationMinutes', '')} min",
+                    f"{event.get('durationMinutes', '')} 分钟",
                     str(event.get("evidenceStrength", "")),
                     str(event.get("qualityGate", "")),
                     list_text(event.get("riskFlags", [])),
@@ -127,9 +127,9 @@ def render_report(data: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## Evidence Index Preview",
+            "## 证据索引预览",
             "",
-            "| Event ID | Linked evidence |",
+            "| 事件ID | 关联证据 |",
             "| --- | --- |",
         ]
     )
@@ -140,7 +140,7 @@ def render_report(data: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## Included Events",
+            "## 纳入事件",
             "",
         ]
     )
@@ -153,35 +153,35 @@ def render_report(data: dict[str, Any]) -> str:
             [
                 f"### {event_id}",
                 "",
-                f"- Type: {event.get('eventType', '')}",
-                f"- Work date: {event.get('workDate', '')}",
-                f"- Time: {event.get('startTime', '')} to {event.get('endTime', '')}",
-                f"- Duration minutes: {event.get('durationMinutes', '')}",
-                f"- Evidence strength: {event.get('evidenceStrength', '')}",
-                f"- Quality gate: {event.get('qualityGate', '')}",
-                f"- Risk flags: {risk_flags_text}",
-                f"- Review action: {event.get('reviewAction', '')}",
-                f"- Summary: {event.get('workSummary', '')}",
-                "- Evidence:",
+                f"- 类型：{event.get('eventType', '')}",
+                f"- 日期：{event.get('workDate', '')}",
+                f"- 时间：{event.get('startTime', '')} 至 {event.get('endTime', '')}",
+                f"- 时长分钟：{event.get('durationMinutes', '')}",
+                f"- 证据强度：{event.get('evidenceStrength', '')}",
+                f"- 质量门：{event.get('qualityGate', '')}",
+                f"- 风险标记：{risk_flags_text}",
+                f"- 复核动作：{event.get('reviewAction', '')}",
+                f"- 摘要：{event.get('workSummary', '')}",
+                "- 证据：",
             ]
         )
         for item in sorted(evidence_by_event.get(event_id, []), key=evidence_sort_key):
             lines.append(
                 f"  - {item.get('evidenceId', '')}: {item.get('sourceType', '')}, "
                 f"{item.get('sourceFileName', '')}:{item.get('sourceRowNum', '')}, "
-                f"quickLocator `{item.get('quickLocator', '')}`"
+                f"快速定位 `{item.get('quickLocator', '')}`"
             )
         lines.append("")
 
     if excluded_candidates:
-        lines.extend(["## Excluded Candidates", ""])
+        lines.extend(["## 排除候选", ""])
         for candidate in excluded_candidates:
             lines.append(f"- {candidate.get('candidateId', '')}: {candidate.get('reason', '')}")
         lines.append("")
 
-    lines.extend(["## Review Notes", ""])
+    lines.extend(["## 复核提示", ""])
     if needs_review:
-        lines.append("The following mock events need human review before reuse:")
+        lines.append("以下 mock events 在复用前需要人工复核：")
         lines.append("")
         for event in needs_review:
             event_id = event.get("eventId", "")
@@ -189,21 +189,21 @@ def render_report(data: dict[str, Any]) -> str:
             if event.get("qualityGate") != "pass":
                 reasons.append(f"gate={event.get('qualityGate', '')}")
             risk_text = list_text(event.get("riskFlags", []))
-            if risk_text != "none":
+            if risk_text != "无":
                 reasons.append(f"risks={risk_text}")
             lines.append(f"- {event_id}: {', '.join(reasons)}")
     else:
-        lines.append("No mock events are currently flagged beyond routine review.")
+        lines.append("当前没有超出常规复核范围的 mock events。")
     lines.extend(
         [
             "",
-            "This report is a structure preview only. It is not legal advice.",
+            "本报告只用于结构预览，不是法律意见。",
             "",
-            "## Boundaries",
+            "## 边界说明",
             "",
-            "- Uses mock-only data.",
-            "- Does not include full source quotes, chat transcripts, recordings, source code, private delivery details, or legal conclusions.",
-            "- Keep real case materials out of this repository, issues, pull requests, and discussions.",
+            "- 仅使用 mock-only 数据。",
+            "- 不包含完整聊天原文、录音转写、源码、私有交付流程或法律结论。",
+            "- 不要在本仓库、issue、PR 或 discussion 中提交真实案件材料。",
             "",
         ]
     )

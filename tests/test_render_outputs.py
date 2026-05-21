@@ -28,12 +28,13 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertIsInstance(report, str)
         self.assertIn("pkg-mock-2026-02", report)
         self.assertIn(MOCK_ONLY_NOTICE, report)
-        self.assertIn("## Excluded Candidates", report)
-        self.assertIn("## Summary", report)
-        self.assertIn("## Event Overview", report)
-        self.assertIn("## Review Notes", report)
-        self.assertIn("- Quality gates:", report)
-        self.assertIn("- Evidence strength:", report)
+        self.assertIn("## 排除候选", report)
+        self.assertIn("## 摘要", report)
+        self.assertIn("## 事件概览", report)
+        self.assertIn("## 复核提示", report)
+        self.assertIn("## 边界说明", report)
+        self.assertIn("- 质量门：", report)
+        self.assertIn("- 证据强度：", report)
 
     def test_report_contains_all_event_ids(self):
         data = load_mock_package()
@@ -51,7 +52,7 @@ class RenderOutputsTest(unittest.TestCase):
         report = render_report(data)
         for item in data["evidenceItems"]:
             self.assertNotIn(item["sourceQuote"], report)
-        self.assertIn("quickLocator", report)
+        self.assertIn("快速定位", report)
 
     def test_evidence_index_header_and_row_count(self):
         data = load_mock_package()
@@ -59,14 +60,14 @@ class RenderOutputsTest(unittest.TestCase):
         rows = list(csv.DictReader(io.StringIO(csv_text)))
         self.assertEqual(csv_text.splitlines()[0], ",".join(CSV_FIELDS))
         self.assertEqual(len(rows), len(data["evidenceItems"]))
-        self.assertIn("eventType", rows[0])
-        self.assertIn("workDate", rows[0])
+        self.assertIn("事件类型", rows[0])
+        self.assertIn("日期", rows[0])
 
     def test_evidence_index_can_be_read_as_csv(self):
         data = load_mock_package()
         rows = list(csv.DictReader(io.StringIO(render_index(data))))
         self.assertEqual(set(rows[0].keys()), set(CSV_FIELDS))
-        self.assertTrue(all(row["redactionLevel"] == "mock" for row in rows))
+        self.assertTrue(all(row["脱敏级别"] == "mock" for row in rows))
 
     def test_renderers_match_committed_samples(self):
         data = load_mock_package()

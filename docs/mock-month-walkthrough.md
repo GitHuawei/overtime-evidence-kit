@@ -42,16 +42,16 @@ outputs/demo/
 
 ## 公开输出如何阅读
 
-`mock-report.md` 面向 GitHub 阅读场景，包含：
+`mock-report.md` 面向 GitHub 阅读场景，已中文化，包含：
 
-- `Summary`：月份范围、事件数量、证据数量、质量门分布和证据强度分布。
-- `Event Overview`：事件表格，适合快速扫描。
-- `Evidence Index Preview`：每个事件关联的证据项简表。
-- `Included Events`：逐个事件的摘要、时间、风险、复核动作和证据列表。
-- `Review Notes`：需要人工复核的 mock events 和原因。
-- `Boundaries`：mock-only 与非法律意见提醒。
+- `摘要`：月份范围、事件数量、证据数量、质量门分布和证据强度分布。
+- `事件概览`：事件表格，适合快速扫描。
+- `证据索引预览`：每个事件关联的证据项简表。
+- `纳入事件`：逐个事件的摘要、时间、风险、复核动作和证据列表。
+- `复核提示`：需要人工复核的 mock events 和原因。
+- `边界说明`：mock-only 与非法律意见提醒。
 
-`mock-evidence-index.csv` 面向证据定位，包含 event 类型、日期、source 文件名和 source 行号。它不包含完整 `sourceQuote`。
+`mock-evidence-index.csv` 面向证据定位，已使用中文 header，包含 event 类型、日期、source 文件名和 source 行号。它不包含完整 `sourceQuote`。
 
 ## 当前 included events
 

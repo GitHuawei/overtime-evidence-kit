@@ -75,11 +75,11 @@ python scripts/run_demo.py
 outputs/demo/
 ```
 
-生成文件：
+生成文件（面向人读的公开输出已经中文化）：
 
 - `outputs/demo/package.json`
-- `outputs/demo/mock-report.md`
-- `outputs/demo/mock-evidence-index.csv`
+- `outputs/demo/mock-report.md`：中文 Markdown 摘要。
+- `outputs/demo/mock-evidence-index.csv`：中文 CSV header 的证据索引。
 
 `outputs/demo/` 已被 `.gitignore` 忽略，不应提交。
 
@@ -148,7 +148,7 @@ GitHub Actions 运行同一条质量门。
 - [Mock report](examples/mock-evidence-package/mock-report.md)
 - [Evidence index CSV](examples/mock-evidence-package/mock-evidence-index.csv)
 
-公开输出只展示结构化摘要、证据定位、质量门、风险提示和复核建议，不输出完整聊天原文、录音转写、源码、私有流程或法律结论。
+公开输出已经中文化，只展示结构化摘要、证据定位、质量门、风险提示和复核建议，不输出完整聊天原文、录音转写、源码、私有流程或法律结论。
 
 ## 目录结构
 

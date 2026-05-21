@@ -12,6 +12,30 @@ from typing import Any
 
 
 CSV_FIELDS = [
+    "\u8bc1\u636eID",
+    "\u4e8b\u4ef6ID",
+    "\u4e8b\u4ef6\u7c7b\u578b",
+    "\u65e5\u671f",
+    "\u6765\u6e90\u7c7b\u578b",
+    "\u6765\u6e90\u6587\u4ef6",
+    "\u6765\u6e90\u884c\u53f7",
+    "\u6d88\u606fID",
+    "\u5feb\u901f\u5b9a\u4f4d",
+    "\u8131\u654f\u7ea7\u522b",
+]
+PACKAGE_FIELD_BY_CSV_FIELD = {
+    "\u8bc1\u636eID": "evidenceId",
+    "\u4e8b\u4ef6ID": "eventId",
+    "\u4e8b\u4ef6\u7c7b\u578b": "eventType",
+    "\u65e5\u671f": "workDate",
+    "\u6765\u6e90\u7c7b\u578b": "sourceType",
+    "\u6765\u6e90\u6587\u4ef6": "sourceFileName",
+    "\u6765\u6e90\u884c\u53f7": "sourceRowNum",
+    "\u6d88\u606fID": "messageId",
+    "\u5feb\u901f\u5b9a\u4f4d": "quickLocator",
+    "\u8131\u654f\u7ea7\u522b": "redactionLevel",
+}
+PACKAGE_FIELDS = [
     "evidenceId",
     "eventId",
     "eventType",
@@ -55,10 +79,14 @@ def render_index(data: dict[str, Any]) -> str:
     ]
     for item in sorted(evidence_items, key=evidence_sort_key):
         event = events_by_id.get(item.get("eventId"), {})
-        row = {field: item.get(field, "") for field in CSV_FIELDS}
+        package_row = {field: item.get(field, "") for field in PACKAGE_FIELDS}
         if isinstance(event, dict):
-            row["eventType"] = event.get("eventType", "")
-            row["workDate"] = event.get("workDate", "")
+            package_row["eventType"] = event.get("eventType", "")
+            package_row["workDate"] = event.get("workDate", "")
+        row = {
+            csv_field: package_row.get(package_field, "")
+            for csv_field, package_field in PACKAGE_FIELD_BY_CSV_FIELD.items()
+        }
         writer.writerow(row)
     return output.getvalue()
 

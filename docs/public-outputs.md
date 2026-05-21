@@ -34,13 +34,13 @@
 
 ## CSV evidence index 允许字段
 
-当前 CSV header：
+当前 CSV header 已中文化：
 
 ```text
-evidenceId,eventId,eventType,workDate,sourceType,sourceFileName,sourceRowNum,messageId,quickLocator,redactionLevel
+证据ID,事件ID,事件类型,日期,来源类型,来源文件,来源行号,消息ID,快速定位,脱敏级别
 ```
 
-这些字段用于人工快速定位 mock evidence item。它们不应该暴露完整聊天原文、录音转写、源码或任何真实隐私信息。
+这些字段用于人工快速定位 mock evidence item。package JSON key 和 schema field name 仍保持英文不变，CSV header 是面向人读的公开输出。CSV 不应该暴露完整聊天原文、录音转写、源码或任何真实隐私信息。
 
 ## 不允许展示
 

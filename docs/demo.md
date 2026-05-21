@@ -29,19 +29,19 @@ demo 会按顺序执行：
 outputs/demo/
 ```
 
-生成文件：
+生成文件（公开人读输出已中文化）：
 
 - `outputs/demo/package.json`
-- `outputs/demo/mock-report.md`
-- `outputs/demo/mock-evidence-index.csv`
+- `outputs/demo/mock-report.md`：中文 Markdown 摘要。
+- `outputs/demo/mock-evidence-index.csv`：中文 CSV header 的证据索引。
 
 `outputs/demo/` 已被 `.gitignore` 忽略，不应提交。
 
 ## 如何读取输出
 
 - `package.json`：评估后的 mock evidence package，包含 `evidenceStrength`、`qualityGate`、`riskFlags`、`reviewAction` 等字段。
-- `mock-report.md`：面向 GitHub 阅读的 Markdown 摘要，包含 Summary、Event Overview、Included Events、Review Notes 和 Boundaries。
-- `mock-evidence-index.csv`：证据索引表，字段稳定，适合用表格工具快速扫描。
+- `mock-report.md`：面向 GitHub 阅读的中文 Markdown 摘要，包含 `摘要`、`事件概览`、`纳入事件`、`复核提示` 和 `边界说明`。
+- `mock-evidence-index.csv`：中文 CSV header 的证据索引表，字段稳定，适合用表格工具快速扫描。
 
 ## 自定义输出目录
 

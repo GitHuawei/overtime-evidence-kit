@@ -40,8 +40,11 @@ class RunDemoTests(unittest.TestCase):
         output_dir, _summary = self.run_demo_in_temp()
         report = (output_dir / "mock-report.md").read_text(encoding="utf-8")
 
-        self.assertIn("Mock-only notice", report)
-        self.assertIn("does not provide legal advice", report)
+        self.assertIn("mock-only 提醒", report)
+        self.assertIn("不提供法律意见", report)
+        self.assertIn("## 摘要", report)
+        self.assertIn("## 事件概览", report)
+        self.assertIn("## 边界说明", report)
         self.assertNotIn("sourceQuote", report)
 
     def test_csv_header_is_stable(self):
