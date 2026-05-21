@@ -1,62 +1,65 @@
-# 贡献指南
+# Contributing
 
-感谢你考虑贡献 `overtime-evidence-kit`。
+Thank you for considering a contribution to `overtime-evidence-kit`.
 
-## 基本原则
+This repository is a mock-only open-source project. Contributions must be safe to publish publicly and must not include real case material.
 
-- 只提交 mock 数据。
-- 不提交真实案件、真实聊天、真实 Git、真实录音、真实公司、人名、项目、金额、地址、手机号或任何可识别真实案件的信息。
-- 文档应保持服务边界清晰：本项目做证据整理和材料结构化，不提供法律意见，不承诺结果。
-- 新增 validator 行为必须补充测试。
+## Ground Rules
 
-## 开发流程
+- Submit only fictional mock data.
+- Do not submit real WeChat chats, group chats, screenshots, exports, or message IDs.
+- Do not submit real Git commits, repository names, source code, branch names, or commit hashes.
+- Do not submit real recordings, transcripts, meeting notes, company names, person names, project names, client names, addresses, phone numbers, amounts, contract details, salaries, or identifiers.
+- Do not submit examples derived from real cases, even if partially anonymized.
+- Do not make legal conclusions, outcome promises, or service delivery commitments.
+- Add tests for validator, renderer, schema, or rules-engine behavior changes.
 
-1. 从 `master` 创建主题分支。
-2. 保持改动聚焦，一个 PR 解决一个主题。
-3. 更新相关文档和测试。
-4. 本地运行验证命令。
-5. 提交 PR，并说明 mock-only 检查结果。
+## Development Flow
 
-## 本地验证
+1. Create a focused branch from `master`.
+2. Keep each pull request limited to one topic.
+3. Update related documentation and tests.
+4. Run local validation.
+5. Confirm that every added sample is fictional and mock-only.
+
+## Local Validation
+
+Run:
 
 ```powershell
-python scripts/validate_evidence_package.py examples/mock-evidence-package/package.json
-python scripts/render_mock_report.py examples/mock-evidence-package/package.json
+python scripts/check_all.py
 python -m unittest discover -s tests -p "test_*.py"
+git diff --check
 ```
 
-## Mock-only 要求
+## Mock-only Examples
 
-允许：
+Allowed:
 
-- `mock-*` 标识。
-- 泛化角色，例如 `员工-A`、`主管-B`、`HR-C`。
-- 泛化项目，例如 `订单系统`、`BI 报表服务`、`客服后台`。
-- 结构真实但内容虚构的示例。
+- `mock-*` identifiers.
+- Generic roles such as `technical worker`, `reviewer`, or `coordinator`.
+- Fictional system names that are clearly generic examples.
+- Structure-realistic but content-fictional timelines.
 
-禁止：
+Forbidden:
 
-- 真实聊天原文。
-- 真实 commit hash 或仓库名。
-- 真实录音摘要。
-- 真实身份、公司、客户、项目、地址、手机号、金额。
-- 可反推真实案件的日期和组合细节。
+- Real chat text or message exports.
+- Real commit hashes, repository names, branch names, source code, or logs.
+- Real audio summaries or transcripts.
+- Real identities, organizations, customers, projects, addresses, phone numbers, or amounts.
+- Dates, timelines, or combined details that could identify a real case.
 
-## 提交信息
+## Pull Request Checklist
 
-建议使用清晰的 Conventional Commits 风格：
+Before opening a pull request, confirm:
 
-- `docs: update privacy boundary`
-- `fix: tighten validator rule`
-- `test: cover evidence coverage validation`
-- `chore: update CI checks`
+- Local tests pass.
+- `python scripts/check_all.py` passes.
+- The change includes only mock data.
+- Documentation does not promise legal outcomes.
+- New validator or renderer behavior has test coverage.
+- No IDE files, local caches, generated temporary files, or private materials are committed.
 
-## Pull Request 清单
+## Where to Report Boundary Concerns
 
-提交 PR 前请确认：
-
-- 本地测试通过。
-- 只包含 mock 数据。
-- 文档没有承诺法律结果。
-- 新增规则有测试覆盖。
-- 没有提交 IDE、本地缓存或生成文件。
+If you notice a privacy or mock-only boundary risk, open a privacy boundary issue using the template and describe the problem with fictional reproduction steps only.

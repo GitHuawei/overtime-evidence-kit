@@ -1,93 +1,105 @@
 # overtime-evidence-kit
 
-程序员加班证据整理 SOP 与工具包。
+![CI](https://github.com/GitHuawei/overtime-evidence-kit/actions/workflows/ci.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-`overtime-evidence-kit` 用于演示如何把技术岗位常见的聊天、群聊、Git、发布夜和休息日任务线索，整理成可追溯、可复核、可脱敏的 mock 证据包。它提供通用 SOP、JSON Schema、完整 mock 月份、validator、公开报告 renderer、证据索引 renderer 和一键检查脚本。
+`overtime-evidence-kit` is a mock-only evidence organization toolkit for demonstrating how overtime-related work signals can be structured into a reviewable package.
 
-## 项目状态
+The project provides a fictional sample month, JSON Schema validation, local renderers, a rules engine, GitHub Actions, and release readiness checks. It is designed for open-source discussion and local experimentation, not for handling real case material.
 
-当前处于 Open Source Preview Milestone。项目可以用于阅读、运行 mock 示例和参与早期设计讨论，但仍不处理真实案件材料。
+## Project Status
 
-已经包含：
+Current status: **v0.1.0 Release Candidate**.
 
-- 完整 mock 月份示例。
-- JSON Schema 数据模型。
-- Validator 和一键检查脚本。
-- Markdown mock report 与 CSV evidence index renderer。
-- GitHub Actions CI。
-- 开源边界、贡献、安全和路线图文档。
+Included capabilities:
 
-尚未包含：
+- Mock evidence package with fictional events and evidence items.
+- JSON Schema validation for the public package structure.
+- Validator checks for schema, time order, evidence coverage, mock-only boundaries, and sensitive patterns.
+- Mock input adapter and rules engine for the sample package.
+- Markdown mock report renderer.
+- CSV evidence index renderer.
+- `scripts/check_all.py` quality gate used locally and in CI.
+- Open-source governance documents, release checklist, issue templates, and PR template.
 
-- SaaS 服务。
-- 真实材料导入。
-- 真实 Git 仓库扫描。
-- 真实录音处理。
-- 法律意见生成。
-- 客户交付模板。
+Still not supported:
 
-## 适用场景
+- Real chat import.
+- Real Git repository scanning.
+- Real audio processing or transcript ingestion.
+- SaaS hosting or account-based workflows.
+- Legal advice, legal conclusions, or outcome guarantees.
+- Real service delivery playbooks or private review procedures.
 
-适合用于：
+## Mock-only Boundary
 
-- 学习技术岗位加班证据如何结构化。
-- 用 mock 数据理解事件、证据项、报告和索引的关系。
-- 在本地验证脱敏证据包结构是否满足基础规则。
-- 讨论开源证据包字段设计、质量门禁和 mock-only 边界。
+All evidence data in this repository must be fictional mock data.
 
-## 不适用场景
+Do not submit, paste, migrate, summarize, or derive examples from:
 
-不适合用于：
+- Real WeChat chats, group chats, screenshots, exports, or message IDs.
+- Real Git commits, repository names, source code, branch names, or commit hashes.
+- Real recordings, transcripts, meeting notes, or file names.
+- Real company names, person names, project names, client names, addresses, phone numbers, contract details, salaries, amounts, or identifiers.
+- Any combination of details that could identify a real dispute, workplace, customer, project, or person.
 
-- 上传真实聊天记录到公开仓库。
-- 替代律师意见。
-- 承诺协商、投诉、仲裁或诉讼结果。
-- 自动认定任何单位违法。
-- 处理未授权的他人隐私、客户数据、源码或商业秘密。
-- 托管真实案件材料。
+Mock examples must be created from the structure level. Do not anonymize a real case and commit it here.
 
-## 隐私警告
+This project does not provide legal advice and does not promise any negotiation, arbitration, litigation, or enforcement result.
 
-仓库内所有证据数据必须是 mock。不得提交、复制、迁移或粘贴以下内容：
+## Appropriate Use
 
-- 真实微信聊天记录或群聊记录。
-- 真实代码提交记录、仓库名、commit hash。
-- 真实录音、录音文件名或录音转写。
-- 真实公司名、人名、项目名、客户名、业务系统名。
-- 真实金额、地址、手机号、身份证号、合同、工资流水。
-- 任何可识别真实案件的信息或可反推真实案件事实的组合细节。
+Use this repository to:
 
-mock 示例也不能由真实材料改写而来。日期、角色、项目、金额和事件组合本身也可能构成可识别信息，因此示例必须从结构层面重新虚构。
+- Learn how a mock evidence package can be structured.
+- Discuss schema, validator, renderer, and public output design.
+- Run local checks against fictional samples.
+- Contribute open-source improvements that preserve mock-only boundaries.
 
-## 快速开始
+Do not use this repository to:
 
-推荐先运行一键检查：
+- Store or process real case evidence.
+- Ask maintainers to review private material in issues, pull requests, or discussions.
+- Generate legal conclusions.
+- Replace professional legal review.
+- Publish real employer, employee, customer, project, address, payment, or contact details.
+
+## Quick Start
+
+Run the full local quality gate:
 
 ```powershell
 python scripts/check_all.py
 ```
 
-单独运行 validator：
+Validate the committed mock package:
 
 ```powershell
 python scripts/validate_evidence_package.py examples/mock-evidence-package/package.json
 ```
 
-渲染 mock 报告：
+Render the public mock report:
 
 ```powershell
 python scripts/render_mock_report.py examples/mock-evidence-package/package.json
 ```
 
-渲染证据索引：
+Render the public evidence index:
 
 ```powershell
 python scripts/render_evidence_index.py examples/mock-evidence-package/package.json
 ```
 
+Build and evaluate from mock input sources:
+
+```powershell
+python scripts/build_mock_package.py
+python scripts/evaluate_mock_package.py examples/mock-evidence-package/package.json
+```
+
 ## Example Output
 
-当前 mock 月份公开输出摘要：
+Current committed mock output summary:
 
 - Included events: 4
 - Evidence items: 11
@@ -95,87 +107,72 @@ python scripts/render_evidence_index.py examples/mock-evidence-package/package.j
 - Quality gates: `pass: 2`, `needs_review: 2`
 - Evidence strength: `strong: 3`, `medium: 1`
 
-完整输出：
+Public outputs:
 
 - [Mock report](examples/mock-evidence-package/mock-report.md)
 - [Evidence index CSV](examples/mock-evidence-package/mock-evidence-index.csv)
 
-公开输出只展示结构化摘要、证据定位和复核提示，不输出完整聊天原文、录音转写、源码、真实隐私或法律结论。
+The public report and CSV are meant for GitHub-readable review. They show structured summaries, evidence locators, quality gates, and review notes. They do not expose full chat text, recordings, source code, private workflow details, or legal conclusions.
 
-## Build package from mock inputs
+## Quality Gates
 
-从 mock source 重新构建 package：
+`python scripts/check_all.py` covers:
 
-```powershell
-python scripts/build_mock_package.py
-```
+- UTF-8 and text corruption checks.
+- JSON and JSONL parsing.
+- Mock package build and rules evaluation.
+- Evidence package validation.
+- Renderer execution.
+- Committed output consistency.
+- Unit tests.
+- Sensitive pattern scanning.
+- Release readiness file and boundary checks.
 
-计算规则字段：
+GitHub Actions runs the same quality gate through `.github/workflows/ci.yml`.
 
-```powershell
-python scripts/evaluate_mock_package.py examples/mock-evidence-package/package.json
-```
-
-端到端链路：
-
-```powershell
-python scripts/build_mock_package.py | Set-Content -LiteralPath tmp-package.json -Encoding utf8
-python scripts/evaluate_mock_package.py tmp-package.json | Set-Content -LiteralPath tmp-evaluated-package.json -Encoding utf8
-python scripts/validate_evidence_package.py tmp-evaluated-package.json
-```
-
-`tmp-package.json` 和 `tmp-evaluated-package.json` 是本地临时文件，不应提交。
-
-## 完整 mock 月份示例
-
-入口：
-
-- [mock 月份 walkthrough](docs/mock-month-walkthrough.md)
-- [mock package](examples/mock-evidence-package/package.json)
-- [mock report](examples/mock-evidence-package/mock-report.md)
-- [mock evidence index](examples/mock-evidence-package/mock-evidence-index.csv)
-
-该示例只包含虚构数据，用于理解结构，不代表法律结论。
-
-## 目录
+## Repository Layout
 
 ```text
-docs/       SOP、输入清单、证据包规格、隐私、边界、路线图和预览说明
-schema/     JSON Schema 数据模型
-examples/   mock 微信导出、mock Git 日志、mock 证据包和公开输出
-scripts/    validator、renderer 和一键检查脚本
-tests/      单元测试
+.github/    CI, issue templates, and pull request template
+docs/       SOP, specs, boundaries, release checklist, roadmap, and output docs
+examples/   mock input sources, mock package, report, and evidence index
+schema/     JSON Schema files
+scripts/    validator, renderers, builder, rules engine, and check_all
+tests/      unit tests
 ```
 
-## 核心流程
-
-1. 准备并备份原始材料。
-2. 先做隐私与敏感信息预处理。
-3. 导入脱敏后的聊天、群聊、Git、录音目录索引。
-4. 生成候选加班事件。
-5. 分类为工作日延时、发布夜或休息日任务。
-6. 评估证据强度、风险标记与复核动作。
-7. 生成公开交付包。
-8. 执行质量校验并交由用户复核。
-
-## 文档
+## Documentation
 
 - [SOP](docs/SOP.md)
-- [适用场景](docs/use-cases.md)
-- [mock 月份 walkthrough](docs/mock-month-walkthrough.md)
-- [证据包规格](docs/evidence-package-spec.md)
-- [输入适配器](docs/input-adapters.md)
-- [package builder](docs/package-builder.md)
-- [rules engine](docs/rules-engine.md)
-- [公开输出字段白名单](docs/public-outputs.md)
-- [validator 规则](docs/validation-rules.md)
-- [隐私与脱敏原则](docs/privacy-and-redaction.md)
-- [服务边界](docs/service-boundary.md)
-- [开源边界](docs/open-source-boundary.md)
-- [路线图](docs/roadmap.md)
-- [贡献指南](CONTRIBUTING.md)
-- [安全政策](SECURITY.md)
+- [Use cases](docs/use-cases.md)
+- [Mock month walkthrough](docs/mock-month-walkthrough.md)
+- [Evidence package spec](docs/evidence-package-spec.md)
+- [Input adapters](docs/input-adapters.md)
+- [Package builder](docs/package-builder.md)
+- [Rules engine](docs/rules-engine.md)
+- [Public outputs](docs/public-outputs.md)
+- [Validation rules](docs/validation-rules.md)
+- [Privacy and redaction](docs/privacy-and-redaction.md)
+- [Service boundary](docs/service-boundary.md)
+- [Open-source boundary](docs/open-source-boundary.md)
+- [Release checklist](docs/release-checklist.md)
+- [Roadmap](docs/roadmap.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
 
-## 许可证
+## Contributing
 
-本项目使用 MIT License。详见 [LICENSE](LICENSE)。
+Contributions are welcome when they preserve the mock-only boundary. Before opening a pull request, run:
+
+```powershell
+python scripts/check_all.py
+python -m unittest discover -s tests -p "test_*.py"
+git diff --check
+```
+
+Do not include real evidence, private materials, or identifiable case details in issues, pull requests, commits, tests, documentation, or discussions.
+
+## License
+
+This project is released under the MIT License. See [LICENSE](LICENSE).

@@ -1,83 +1,93 @@
-# 路线图
+# Roadmap
 
-## Phase 0: MVP 骨架
+## Completed
 
-状态：已完成。
+### Phase 0: MVP Skeleton
 
-- README、SOP、服务边界和隐私文档。
-- 三类核心 schema：加班事件、证据项、证据包。
-- mock 微信导出、mock Git 日志、mock 证据包。
-- 基础 validator 与 mock report renderer。
-- 单元测试。
+- README, SOP, service boundary, and privacy documentation.
+- Core schema files for events, evidence items, and packages.
+- Mock input sources and mock evidence package.
+- Basic validator and mock report renderer.
+- Unit tests.
 
-## Phase 1: 校验增强
+### Phase 1: Validation Enhancements
 
-状态：已完成。
+- GitHub Actions CI.
+- JSON Schema validation.
+- Time-order validation.
+- `durationMinutes` consistency checks.
+- Event evidence coverage validation.
+- `quickLocator` substring validation.
+- Mock-only sensitive pattern scanning.
 
-- GitHub Actions CI。
-- JSON Schema 校验。
-- 时间顺序校验。
-- `durationMinutes` 与时间差一致性校验。
-- 事件证据覆盖校验。
-- `quickLocator` 子串校验。
-- mock-only 敏感模式扫描。
+### Open Source Readiness
 
-## Open Source Readiness Phase
+- `LICENSE`.
+- `CONTRIBUTING.md`.
+- `SECURITY.md`.
+- Open-source boundary documentation.
+- README privacy warnings, quick start, and project scope.
+- `.idea/` ignore rule.
 
-状态：已完成。
+### Open Source Preview
 
-- LICENSE。
-- CONTRIBUTING.md。
-- SECURITY.md。
-- 开源边界文档。
-- README 项目状态、适用场景、隐私警告和快速开始。
-- `.idea/` 忽略规则。
-
-## Open Source Preview Milestone
-
-状态：已完成。
-
-- 完整 mock 月份案例。
-- 一键检查脚本。
-- CI 收敛到一键检查脚本。
-- validator 输出和规则增强。
-- mock 报告和证据索引输出增强。
-- README 与文档补充完整案例说明。
-- 关键规则测试覆盖。
-
-## 后续方向
+- Full mock month walkthrough.
+- One-command quality gate.
+- CI aligned with `scripts/check_all.py`.
+- Improved validator output and rules.
+- Improved mock report and evidence index outputs.
+- Documentation for public outputs.
+- Tests for key validation and rendering behavior.
 
 ### Phase A: Input Adapter MVP
 
-状态：已完成。
-
-- mock source adapter 字段。
-- `scripts/build_mock_package.py`。
-- `docs/input-adapters.md`。
-- `docs/package-builder.md`。
-- build -> validate -> render 链路。
+- Mock source adapter fields.
+- `scripts/build_mock_package.py`.
+- `docs/input-adapters.md`.
+- `docs/package-builder.md`.
+- Build -> validate -> render workflow.
 
 ### Phase B: Rules Engine MVP
 
-状态：已完成。
+- `scripts/rules_engine.py`.
+- `scripts/evaluate_mock_package.py`.
+- `docs/rules-engine.md`.
+- Automatic calculation of `evidenceStrength`, `qualityGate`, `riskFlags`, and `reviewAction`.
 
-- `scripts/rules_engine.py`。
-- `scripts/evaluate_mock_package.py`。
-- `docs/rules-engine.md`。
-- 自动计算 `evidenceStrength`、`qualityGate`、`riskFlags`、`reviewAction`。
+### Phase C: Public Output Polish
 
-## 后续方向
+- GitHub-readable mock report structure.
+- Stable public evidence index fields.
+- Renderer consistency checks.
+- Documentation for reading public outputs.
 
-- 更多完整 mock 场景。
-- 公开输出字段白名单。
-- 本地-only 脱敏流程设计。
-- 人工复核清单增强。
-- 更清晰的 validator 错误分组与修复建议。
+## Current
 
-## 永不纳入路线图
+### Phase D: Open Source Release Candidate
 
-- 真实案件材料。
-- 真实客户原始证据。
-- 真实聊天、真实 Git、真实录音。
-- 自动承诺法律结果。
-- 替代律师、仲裁委、法院或主管机关判断。
+Status: complete for `v0.1.0 Release Candidate`.
+
+- Release Candidate README status.
+- `CHANGELOG.md`.
+- Release checklist.
+- GitHub issue templates.
+- Pull request template.
+- Stronger contribution, security, and open-source boundary language.
+- Release readiness audit in `scripts/check_all.py`.
+
+## Later Directions
+
+- Stricter mock input adapter validation.
+- Configurable rules-engine thresholds.
+- Local-only redaction workflow design.
+- Better CLI user experience.
+- More fictional mock scenarios.
+- Clearer validator grouping and remediation messages.
+
+## Permanently Out of Scope
+
+- Real case material.
+- Real customer source evidence.
+- Real WeChat, real Git, or real audio ingestion.
+- Automatic legal conclusions.
+- Replacing lawyers, arbitrators, courts, regulators, or professional judgment.

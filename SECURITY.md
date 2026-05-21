@@ -1,41 +1,47 @@
-# 安全政策
+# Security Policy
 
-## 支持范围
+## Supported Scope
 
-当前支持范围为 `master` 分支上的开源 MVP。
+The supported branch for this Release Candidate is `master`.
 
-安全问题包括：
+Security and privacy boundary issues include:
 
-- 可能导致真实信息泄露的脚本或文档缺陷。
-- mock-only 扫描规则绕过。
-- validator 误接受明显敏感信息。
-- CI 未覆盖的公开发布风险。
+- A script, document, test, or template that could allow real private information to be committed.
+- A validator or quality gate that misses obvious sensitive patterns.
+- A public output renderer that exposes raw source material instead of safe summaries.
+- CI behavior that diverges from `python scripts/check_all.py`.
 
-## 不要公开提交敏感信息
+## Do Not Publicly Submit Sensitive Information
 
-请不要在 issue、PR、discussion、commit 或附件中提交：
+Do not include real case material in issues, pull requests, discussions, commits, comments, attachments, or screenshots.
 
-- 真实聊天记录。
-- 真实 Git 提交、仓库名或代码片段。
-- 真实录音或录音转写。
-- 真实人名、公司名、项目名、客户名。
-- 真实地址、手机号、身份证号、金额、合同或工资流水。
+Never submit:
 
-如果你需要说明问题，请使用完全虚构的 mock 数据，并用 `mock-*` 标识。
+- Real WeChat chats, group chats, screenshots, exports, or message IDs.
+- Real Git commits, repository names, branch names, source code, or commit hashes.
+- Real recordings, transcripts, meeting notes, or file names.
+- Real company names, person names, project names, client names, addresses, phone numbers, amounts, contract details, salaries, or identifiers.
+- Any details that could identify a real workplace, dispute, customer, project, or person.
 
-## 报告方式
+Use fictional mock data and `mock-*` identifiers when describing a problem.
 
-如果发现安全或隐私边界问题，请通过 GitHub Security Advisories 或私下渠道报告。报告中请包含：
+## Reporting a Vulnerability
 
-- 影响范围。
-- 复现步骤。
-- 使用的 mock 输入。
-- 期望行为和实际行为。
+Use GitHub Security Advisories or another private channel for security-sensitive reports. Keep the report mock-only.
 
-不要包含真实案件材料。
+Include:
 
-## 处理原则
+- Affected file or behavior.
+- Fictional reproduction steps.
+- Expected behavior.
+- Actual behavior.
+- Why the issue could create a privacy or release-readiness risk.
 
-- 优先修复会导致真实信息进入仓库、CI 或公开输出的缺陷。
-- 修复应包含回归测试。
-- 修复后应运行本地验证和 mock-only 扫描。
+Do not attach real evidence or private material.
+
+## Handling Principles
+
+- Privacy boundary fixes take priority.
+- Fixes should include tests or quality-gate coverage when practical.
+- Public outputs must remain summaries and indexes, not raw evidence dumps.
+- This project does not provide legal advice or promise legal outcomes.

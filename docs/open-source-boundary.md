@@ -1,59 +1,75 @@
-# 开源边界
+# Open-source Boundary
 
-## 可以开源
+`overtime-evidence-kit` is open source only within a strict mock-only boundary.
 
-- 通用 SOP。
-- 数据模型和 JSON Schema。
-- mock 样例。
-- 基础 validator。
-- 基础 mock 报告渲染脚本。
-- 公开安全、隐私、贡献和路线图文档。
-- 不含真实信息的测试用例。
+## Open-source Scope
 
-## 暂不开放
+The repository may include:
 
-- 真实服务流程。
-- 客户交付模板。
-- 定价策略。
-- 人工复核细则。
-- 高级质量门禁。
-- 具体商业执行经验。
+- General SOP and documentation.
+- JSON Schema files.
+- Fictional mock examples.
+- Local validators, renderers, builders, and rules-engine scripts.
+- Public output samples generated from mock data.
+- Tests using fictional data.
+- Governance documents, issue templates, release checklist, and CI configuration.
 
-## 永不开放
+## Not Open-source Scope
 
-- 真实客户原始材料。
-- 真实聊天记录。
-- 真实代码提交。
-- 真实录音或录音转写。
-- 真实公司、人员、项目、客户、地址、电话、合同、工资、证据索引内容。
-- 任何可反推出真实案件事实的日期、金额或组合细节。
+The repository must not include:
 
-## 贡献边界
+- Real service delivery workflows.
+- Private review procedures.
+- Customer delivery templates.
+- Pricing strategy.
+- Real legal strategy.
+- Commercial execution details.
 
-贡献者只能提交 mock 数据。若某个示例看起来来自真实案件，即使已经部分脱敏，也不应合并。
+## Never Accepted
 
-贡献者应优先使用：
+Never commit or request:
 
-- `mock-*` 标识。
-- 泛化角色。
-- 泛化项目名称。
-- 明显示例化的时间线。
-- `claimAmount: 0` 或其他不代表真实金额的占位值。
+- Real WeChat chats, group chats, screenshots, exports, or message IDs.
+- Real Git commits, repository names, source code, branch names, or commit hashes.
+- Real recordings, transcripts, meeting notes, or file names.
+- Real company names, person names, project names, customer names, addresses, phone numbers, amounts, contract details, salaries, or identifiers.
+- Any date, timeline, event combination, or detail set that could identify a real case.
 
-## 公开输出边界
+Partially anonymized real material is still not acceptable. Examples must be invented from the structure level.
 
-公开输出应只包含：
+## Contribution Boundary
 
-- 事件摘要。
-- 证据索引。
-- 证据强度。
-- 风险提示。
-- 复核建议。
+Contributors should use:
 
-公开输出不应包含：
+- `mock-*` identifiers.
+- Generic roles.
+- Generic fictional system names.
+- Obvious sample timelines.
+- `claimAmount: 0` or other non-real placeholder values where the schema needs a value.
 
-- 原始聊天全文。
-- 原始代码内容。
-- 录音转写全文。
-- 未必要的个人隐私。
-- 商业秘密或客户数据。
+If a sample appears to be based on a real dispute, it should not be merged.
+
+## Public Output Boundary
+
+Public outputs may include:
+
+- Event summaries.
+- Evidence IDs.
+- Source type labels.
+- Source file names from mock packages.
+- Source row numbers.
+- `quickLocator` values.
+- Evidence strength, quality gate, risk flag, and review action fields.
+
+Public outputs must not include:
+
+- Full chat transcripts.
+- Raw source code.
+- Audio transcripts.
+- Private delivery notes.
+- Legal conclusions.
+- Personal data, company data, customer data, or real case identifiers.
+
+## Legal Boundary
+
+This project helps demonstrate structure, validation, and review workflows for mock packages. It does not provide legal advice, does not replace professional review, and does not promise negotiation, arbitration, litigation, or enforcement results.

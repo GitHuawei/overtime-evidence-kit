@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run all local checks for the open-source preview."""
+"""Run all local checks for the release candidate."""
 
 from __future__ import annotations
 
@@ -27,6 +27,74 @@ IGNORED_PREFIXES = {
     ("docs", "plans"),
 }
 TEXT_SUFFIXES = {".md", ".json", ".jsonl", ".csv", ".py", ".yml", ".yaml"}
+RELEASE_REQUIRED_FILES = [
+    "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "LICENSE",
+    "docs/open-source-boundary.md",
+    "docs/public-outputs.md",
+    "docs/release-checklist.md",
+    "docs/roadmap.md",
+    ".github/workflows/ci.yml",
+    ".github/ISSUE_TEMPLATE/bug_report.md",
+    ".github/ISSUE_TEMPLATE/feature_request.md",
+    ".github/ISSUE_TEMPLATE/privacy_boundary.md",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+]
+RELEASE_REQUIRED_PHRASES = {
+    "README.md": [
+        "Release Candidate",
+        "mock-only",
+        "Do not submit",
+        "does not provide legal advice",
+        "Quick Start",
+        "Quality Gates",
+    ],
+    "CHANGELOG.md": [
+        "v0.1.0 - planned",
+        "mock evidence package",
+        "mock-only boundaries",
+    ],
+    "CONTRIBUTING.md": [
+        "mock-only",
+        "Do not submit real WeChat chats",
+        "Do not submit real Git commits",
+    ],
+    "SECURITY.md": [
+        "Do not include real case material",
+        "Use fictional mock data",
+        "does not provide legal advice",
+    ],
+    "docs/open-source-boundary.md": [
+        "strict mock-only boundary",
+        "Never commit or request",
+        "does not provide legal advice",
+    ],
+    ".github/ISSUE_TEMPLATE/bug_report.md": [
+        "Mock-only Confirmation",
+        "real WeChat chats",
+        "real Git data",
+        "Do not paste real evidence",
+    ],
+    ".github/ISSUE_TEMPLATE/feature_request.md": [
+        "Mock-only Confirmation",
+        "real WeChat chats",
+        "legal outcome guarantee",
+    ],
+    ".github/ISSUE_TEMPLATE/privacy_boundary.md": [
+        "Mock-only Confirmation",
+        "no real evidence",
+        "fictional mock data only",
+    ],
+    ".github/PULL_REQUEST_TEMPLATE.md": [
+        "Mock-only and Privacy Checklist",
+        "real WeChat chats",
+        "real Git commits",
+        "legal outcomes",
+    ],
+}
 PHONE_RE = re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)")
 ID_CARD_RE = re.compile(r"\b\d{17}[\dXx]\b")
 REAL_COMMIT_RE = re.compile(r"(?<!mock-)(?<!schema-)\b[0-9a-fA-F]{7,40}\b")
@@ -268,6 +336,30 @@ def check_committed_outputs() -> bool:
     return True
 
 
+def check_release_readiness_files() -> bool:
+    failures: list[str] = []
+    for relative_path in RELEASE_REQUIRED_FILES:
+        path = ROOT / relative_path
+        if not path.is_file():
+            failures.append(f"{relative_path}: missing required release file")
+
+    for relative_path, phrases in RELEASE_REQUIRED_PHRASES.items():
+        path = ROOT / relative_path
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for phrase in phrases:
+            if phrase not in text:
+                failures.append(f"{relative_path}: missing required phrase {phrase!r}")
+
+    if failures:
+        print("FAIL release readiness files")
+        print("\n".join(failures))
+        return False
+    print("PASS release readiness files")
+    return True
+
+
 def main() -> int:
     checks = [
         check_utf8_files,
@@ -299,6 +391,7 @@ def main() -> int:
             "render evidence index",
         ),
         check_committed_outputs,
+        check_release_readiness_files,
         lambda: run_subprocess(
             [
                 sys.executable,
