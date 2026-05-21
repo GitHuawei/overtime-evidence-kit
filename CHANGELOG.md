@@ -33,3 +33,11 @@
 - Added release readiness checks for required governance files and public boundary language.
 - Sensitive scan continues to block phone-number-like values, ID-card-like values, real-commit-like hashes, forbidden paths, and forbidden private-material markers.
 - Contributors are instructed not to submit real chats, real Git data, real recordings, real identities, real organizations, real addresses, real phone numbers, real amounts, or any identifiable case details.
+
+### Known limitations
+
+- Real evidence handling is not included.
+- Real WeChat import, real Git scanning, real audio handling, SaaS features, and account workflows are not included.
+- The release is suitable for mock-only structure review and local demo runs.
+- The project does not provide legal advice, legal conclusions, or outcome guarantees.
+- GitHub Release and tag creation remain manual maintainer decisions.

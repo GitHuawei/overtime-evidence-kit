@@ -1,6 +1,18 @@
 # Release Checklist
 
-This checklist prepares `overtime-evidence-kit` for a `v0.1.0 Release Candidate` state. It does not create a GitHub Release or publish a package.
+This checklist prepares `overtime-evidence-kit` for controlled public launch of a `v0.1.0 Release Candidate` repository state. It does not create a GitHub Release, create a tag, or publish a package.
+
+## Public Visibility Decision
+
+Confirm before making the repository public or announcing it:
+
+- Repository visibility decision is intentional.
+- README first screen says the project is mock-only.
+- README explains what can run locally.
+- README explains unsupported capabilities.
+- `CHANGELOG.md` has reviewed `v0.1.0 - planned` release notes.
+- `docs/public-launch.md` and `docs/repository-settings.md` are current.
+- No GitHub Release or tag is created unless explicitly approved.
 
 ## Local Checks
 
@@ -18,6 +30,7 @@ Expected result:
 - All checks pass.
 - `docs/plans/` is not staged.
 - No local temporary files are staged.
+- No GitHub Release or tag has been created by the checklist.
 
 ## Content Audit
 
@@ -26,11 +39,14 @@ Confirm:
 - README states Release Candidate status.
 - README explains supported and unsupported capabilities.
 - README links to public mock outputs.
+- README links to public launch and repository setting notes.
+- CHANGELOG includes known limitations.
 - Documentation does not promise legal outcomes.
 - Examples are fictional mock data.
 - Tests do not include real data.
 - Scripts do not rely on private local paths.
 - CI calls `python scripts/check_all.py`.
+- Issue and PR templates are present.
 
 ## Sensitive Information Audit
 
@@ -54,9 +70,12 @@ Suggested manual settings before a formal release:
 
 - Repository description mentions mock-only evidence package tooling.
 - Repository topics are generic and do not imply legal advice.
+- Homepage is blank unless a stable public documentation site exists.
+- Discussions are disabled until moderation expectations are clear, or enabled with a pinned mock-only warning.
 - Branch protection is configured if collaborators are added.
 - Security advisories are enabled.
 - Issue templates and PR template are visible.
+- Actions badge points to the current CI workflow.
 
 ## v0.1.0 Tag Preparation
 
@@ -68,6 +87,15 @@ git push origin v0.1.0
 ```
 
 Do not create a GitHub Release unless explicitly requested by the maintainer.
+
+## Release Note Decision
+
+Before creating a tag or GitHub Release later, confirm:
+
+- `CHANGELOG.md` is the source of truth for release notes.
+- Known limitations remain visible.
+- Release notes do not mention real cases, customer work, private delivery processes, pricing, or legal outcomes.
+- The release title does not imply production support for real evidence.
 
 ## Final Boundary Check
 

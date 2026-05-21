@@ -23,6 +23,31 @@ class ReleaseReadinessTests(unittest.TestCase):
         self.assertIn("does not provide legal advice", readme)
         self.assertIn("v0.1.0 - planned", changelog)
         self.assertIn("mock-only boundaries", changelog)
+        self.assertIn("Known limitations", changelog)
+        self.assertIn("Real evidence handling is not included", changelog)
+
+    def test_public_launch_docs_are_public_safe(self):
+        public_launch = self.read("docs/public-launch.md")
+        repository_settings = self.read("docs/repository-settings.md")
+
+        self.assertIn("v0.1.0 Release Candidate", public_launch)
+        self.assertIn("mock-only", public_launch)
+        self.assertIn("no GitHub Release or tag", public_launch)
+        self.assertIn("does not provide legal advice", public_launch)
+        self.assertIn("Post-launch Monitoring Checklist", public_launch)
+
+        self.assertIn("Mock-only toolkit", repository_settings)
+        self.assertIn("Suggested topics", repository_settings)
+        self.assertIn("Do not create a GitHub Release or tag", repository_settings)
+        self.assertIn("No legal conclusions", repository_settings)
+
+    def test_release_checklist_blocks_private_plans_and_release_actions(self):
+        checklist = self.read("docs/release-checklist.md")
+
+        self.assertIn("controlled public launch", checklist)
+        self.assertIn("docs/plans/", checklist)
+        self.assertIn("No GitHub Release or tag", checklist)
+        self.assertIn("Known limitations", checklist)
 
     def test_issue_templates_warn_against_real_material(self):
         for relative_path in [

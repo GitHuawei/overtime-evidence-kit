@@ -3,9 +3,31 @@
 ![CI](https://github.com/GitHuawei/overtime-evidence-kit/actions/workflows/ci.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-`overtime-evidence-kit` is a mock-only evidence organization toolkit for demonstrating how overtime-related work signals can be structured into a reviewable package.
+`overtime-evidence-kit` is a **mock-only** toolkit for structuring fictional overtime evidence packages with schemas, validators, renderers, and release checks.
 
-The project provides a fictional sample month, JSON Schema validation, local renderers, a rules engine, GitHub Actions, and release readiness checks. It is designed for open-source discussion and local experimentation, not for handling real case material.
+It is safe to inspect because every committed example is fictional. The repository is for structure review, local demo runs, and open-source discussion. It is not a place to upload, process, summarize, or review real case material.
+
+First run:
+
+```powershell
+python scripts/check_all.py
+```
+
+What you can run locally:
+
+- Validate a committed mock evidence package.
+- Build a package from fictional mock input sources.
+- Evaluate mock events with local rules.
+- Render a Markdown mock report and CSV evidence index.
+- Run the same quality gate used by CI.
+
+What this project does not do:
+
+- No real chat import.
+- No real Git repository scanning.
+- No real audio or transcript processing.
+- No SaaS hosting, account system, upload workflow, or paid service workflow.
+- No legal advice, legal conclusions, or outcome guarantees.
 
 ## Project Status
 
@@ -28,6 +50,7 @@ Still not supported:
 - Real Git repository scanning.
 - Real audio processing or transcript ingestion.
 - SaaS hosting or account-based workflows.
+- Customer upload workflows or paid pilot materials.
 - Legal advice, legal conclusions, or outcome guarantees.
 - Real service delivery playbooks or private review procedures.
 
@@ -156,6 +179,8 @@ tests/      unit tests
 - [Service boundary](docs/service-boundary.md)
 - [Open-source boundary](docs/open-source-boundary.md)
 - [Release checklist](docs/release-checklist.md)
+- [Public launch notes](docs/public-launch.md)
+- [Repository settings](docs/repository-settings.md)
 - [Roadmap](docs/roadmap.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)

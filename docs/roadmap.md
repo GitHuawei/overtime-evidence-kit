@@ -75,6 +75,17 @@ Status: complete for `v0.1.0 Release Candidate`.
 - Stronger contribution, security, and open-source boundary language.
 - Release readiness audit in `scripts/check_all.py`.
 
+### Phase E: Public Launch Prep
+
+Status: complete for controlled public launch preparation.
+
+- README first-screen launch wording.
+- `CHANGELOG.md` known limitations.
+- Public release checklist updates.
+- Public launch notes.
+- Repository setting suggestions.
+- Launch readiness checks in `scripts/check_all.py`.
+
 ## Later Directions
 
 - Stricter mock input adapter validation.
