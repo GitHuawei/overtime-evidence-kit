@@ -33,6 +33,7 @@ RELEASE_REQUIRED_FILES = [
     "CONTRIBUTING.md",
     "SECURITY.md",
     "LICENSE",
+    "docs/demo.md",
     "docs/open-source-boundary.md",
     "docs/public-launch.md",
     "docs/public-outputs.md",
@@ -76,6 +77,12 @@ RELEASE_REQUIRED_PHRASES = {
         "strict mock-only boundary",
         "Never commit or request",
         "does not provide legal advice",
+    ],
+    "docs/demo.md": [
+        "mock-only",
+        "python scripts/run_demo.py",
+        "outputs/demo/",
+        "does not read user files",
     ],
     "docs/public-launch.md": [
         "v0.1.0 Release Candidate",
@@ -246,7 +253,7 @@ def check_jsonl_files() -> bool:
 
 def scan_sensitive_patterns() -> bool:
     failures: list[str] = []
-    forbidden_path = re.compile(r"history-analysis[\\/]" + "outputs|" + "outputs" + r"/")
+    forbidden_path = re.compile(r"history-analysis[\\/].*outputs")
     forbidden_keywords = [
         "real" + "-case-secret",
         "actual" + "-client-material",
@@ -360,6 +367,67 @@ def check_committed_outputs() -> bool:
     return True
 
 
+def check_demo_run() -> bool:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir) / "demo-output"
+        result = subprocess.run(
+            [
+                sys.executable,
+                "scripts/run_demo.py",
+                "--output-dir",
+                str(output_dir),
+            ],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+        )
+        if result.returncode != 0:
+            print("FAIL demo run")
+            if result.stdout:
+                print(result.stdout, end="")
+            if result.stderr:
+                print(result.stderr, end="", file=sys.stderr)
+            return False
+
+        expected_files = [
+            output_dir / "package.json",
+            output_dir / "mock-report.md",
+            output_dir / "mock-evidence-index.csv",
+        ]
+        for path in expected_files:
+            if not path.is_file():
+                print("FAIL demo run")
+                print(f"{path.name} was not generated")
+                return False
+            corruption = find_text_corruption(path.read_text(encoding="utf-8"))
+            if corruption:
+                print("FAIL demo run")
+                print(f"{path.name}: {corruption}")
+                return False
+
+        package = json.loads((output_dir / "package.json").read_text(encoding="utf-8"))
+        if not run_subprocess(
+            [
+                sys.executable,
+                "scripts/validate_evidence_package.py",
+                str(output_dir / "package.json"),
+            ],
+            "demo package validation",
+        ):
+            return False
+        report = (output_dir / "mock-report.md").read_text(encoding="utf-8")
+        if "Mock-only notice" not in report or "sourceQuote" in report:
+            print("FAIL demo run")
+            print("demo report boundary text is missing or leaks internal fields")
+            return False
+        if not package.get("events"):
+            print("FAIL demo run")
+            print("demo package has no events")
+            return False
+        print("PASS demo run")
+        return True
+
+
 def check_release_readiness_files() -> bool:
     failures: list[str] = []
     for relative_path in RELEASE_REQUIRED_FILES:
@@ -415,6 +483,7 @@ def main() -> int:
             "render evidence index",
         ),
         check_committed_outputs,
+        check_demo_run,
         check_release_readiness_files,
         lambda: run_subprocess(
             [

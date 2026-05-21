@@ -13,6 +13,14 @@ First run:
 python scripts/check_all.py
 ```
 
+Run the demo:
+
+```powershell
+python scripts/run_demo.py
+```
+
+The demo writes generated mock output to `outputs/demo/`, which is ignored by git.
+
 What you can run locally:
 
 - Validate a committed mock evidence package.
@@ -95,6 +103,18 @@ Run the full local quality gate:
 python scripts/check_all.py
 ```
 
+Run the complete mock demo:
+
+```powershell
+python scripts/run_demo.py
+```
+
+Generated files:
+
+- `outputs/demo/package.json`
+- `outputs/demo/mock-report.md`
+- `outputs/demo/mock-evidence-index.csv`
+
 Validate the committed mock package:
 
 ```powershell
@@ -169,6 +189,7 @@ tests/      unit tests
 - [SOP](docs/SOP.md)
 - [Use cases](docs/use-cases.md)
 - [Mock month walkthrough](docs/mock-month-walkthrough.md)
+- [Demo guide](docs/demo.md)
 - [Evidence package spec](docs/evidence-package-spec.md)
 - [Input adapters](docs/input-adapters.md)
 - [Package builder](docs/package-builder.md)
