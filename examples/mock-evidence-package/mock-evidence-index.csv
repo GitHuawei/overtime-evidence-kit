@@ -1,0 +1,5 @@
+evidenceId,eventId,sourceType,sourceFileName,quickLocator
+evd-mock-chat-001,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,示例接口联调
+evd-mock-chat-002,evt-mock-weekday-001,wechat,mock-wechat-export/messages.jsonl,mock 环境联调
+evd-mock-git-001,evt-mock-weekday-001,git,mock-git-log/git-log.json,mock-a1b2c3d
+evd-mock-chat-003,evt-mock-release-001,group_chat,mock-wechat-export/messages.jsonl,观察 mock 指标

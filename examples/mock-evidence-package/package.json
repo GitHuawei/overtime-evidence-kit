@@ -1,0 +1,108 @@
+{
+  "packageId": "pkg-mock-2026-02",
+  "periodStart": "2026-02-01",
+  "periodEnd": "2026-02-28",
+  "subjectRole": "技术岗位劳动者",
+  "inputSources": [
+    "mock-wechat-export/messages.jsonl",
+    "mock-git-log/git-log.json"
+  ],
+  "events": [
+    {
+      "eventId": "evt-mock-weekday-001",
+      "workDate": "2026-02-03",
+      "eventType": "weekday_overtime",
+      "startTime": "2026-02-03T19:00:00+08:00",
+      "endTime": "2026-02-03T21:30:00+08:00",
+      "durationMinutes": 150,
+      "multiplier": 1.5,
+      "claimAmount": 0,
+      "workSummary": "订单系统示例接口联调与 mock 验证结果整理。",
+      "evidenceStrength": "strong",
+      "qualityGate": "pass",
+      "riskFlags": [],
+      "reviewAction": "人工复核聊天时间线与 mock Git 记录是否一致。"
+    },
+    {
+      "eventId": "evt-mock-release-001",
+      "workDate": "2026-02-11",
+      "eventType": "release_night",
+      "startTime": "2026-02-11T20:00:00+08:00",
+      "endTime": "2026-02-11T23:20:00+08:00",
+      "durationMinutes": 200,
+      "multiplier": 1.5,
+      "claimAmount": 0,
+      "workSummary": "BI 报表服务 mock 发布夜观察与示例问题处理。",
+      "evidenceStrength": "medium",
+      "qualityGate": "needs_review",
+      "riskFlags": ["single_source_only"],
+      "reviewAction": "补充发布窗口截图或系统日志索引。"
+    }
+  ],
+  "evidenceItems": [
+    {
+      "evidenceId": "evd-mock-chat-001",
+      "eventId": "evt-mock-weekday-001",
+      "sourceType": "wechat",
+      "sourceFileName": "mock-wechat-export/messages.jsonl",
+      "sourceRowNum": 1,
+      "messageId": "mock-msg-001",
+      "timestamp": "2026-02-03T19:12:00+08:00",
+      "senderRole": "主管-B",
+      "sourceQuote": "订单系统今晚需要完成示例接口联调，员工-A 请在 mock 环境确认结果。",
+      "quickLocator": "示例接口联调",
+      "redactionLevel": "mock"
+    },
+    {
+      "evidenceId": "evd-mock-chat-002",
+      "eventId": "evt-mock-weekday-001",
+      "sourceType": "wechat",
+      "sourceFileName": "mock-wechat-export/messages.jsonl",
+      "sourceRowNum": 2,
+      "messageId": "mock-msg-002",
+      "timestamp": "2026-02-03T21:08:00+08:00",
+      "senderRole": "员工-A",
+      "sourceQuote": "已完成 mock 环境联调，正在整理订单系统示例验证截图。",
+      "quickLocator": "mock 环境联调",
+      "redactionLevel": "mock"
+    },
+    {
+      "evidenceId": "evd-mock-git-001",
+      "eventId": "evt-mock-weekday-001",
+      "sourceType": "git",
+      "sourceFileName": "mock-git-log/git-log.json",
+      "sourceRowNum": 1,
+      "messageId": "mock-a1b2c3d",
+      "timestamp": "2026-02-03T20:45:00+08:00",
+      "senderRole": "员工-A",
+      "sourceQuote": "mock-a1b2c3d mock: adjust order validation example",
+      "quickLocator": "mock-a1b2c3d",
+      "redactionLevel": "mock"
+    },
+    {
+      "evidenceId": "evd-mock-chat-003",
+      "eventId": "evt-mock-release-001",
+      "sourceType": "group_chat",
+      "sourceFileName": "mock-wechat-export/messages.jsonl",
+      "sourceRowNum": 3,
+      "messageId": "mock-msg-003",
+      "timestamp": "2026-02-11T20:30:00+08:00",
+      "senderRole": "发布协调-C",
+      "sourceQuote": "BI 报表服务今晚发布，需观察 mock 指标是否恢复。",
+      "quickLocator": "观察 mock 指标",
+      "redactionLevel": "mock"
+    }
+  ],
+  "excludedCandidates": [
+    {
+      "candidateId": "cand-mock-001",
+      "reason": "只有普通日间沟通，缺少加班时段和任务结果。"
+    }
+  ],
+  "validationReports": [],
+  "publicOutputs": {
+    "summaryMarkdown": "mock-report.md",
+    "evidenceIndexCsv": "mock-evidence-index.csv"
+  }
+}
+

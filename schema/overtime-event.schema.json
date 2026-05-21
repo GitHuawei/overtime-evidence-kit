@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/overtime-evidence-kit/overtime-event.schema.json",
+  "title": "OvertimeEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "workDate",
+    "eventType",
+    "startTime",
+    "endTime",
+    "durationMinutes",
+    "multiplier",
+    "claimAmount",
+    "workSummary",
+    "evidenceStrength",
+    "qualityGate",
+    "riskFlags",
+    "reviewAction"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "pattern": "^evt-[a-z0-9-]+$" },
+    "workDate": { "type": "string", "format": "date" },
+    "eventType": {
+      "type": "string",
+      "enum": ["weekday_overtime", "release_night", "rest_day_task"]
+    },
+    "startTime": { "type": "string", "format": "date-time" },
+    "endTime": { "type": "string", "format": "date-time" },
+    "durationMinutes": { "type": "integer", "minimum": 1 },
+    "multiplier": { "type": "number", "minimum": 0 },
+    "claimAmount": { "type": "number", "minimum": 0 },
+    "workSummary": { "type": "string", "minLength": 1 },
+    "evidenceStrength": { "type": "string", "enum": ["strong", "medium", "weak"] },
+    "qualityGate": { "type": "string", "enum": ["pass", "needs_review", "blocked"] },
+    "riskFlags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "reviewAction": { "type": "string", "minLength": 1 }
+  }
+}
+

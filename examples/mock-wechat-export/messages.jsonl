@@ -1,0 +1,4 @@
+{"messageId":"mock-msg-001","sourceRowNum":1,"timestamp":"2026-02-03T19:12:00+08:00","senderRole":"主管-B","content":"订单系统今晚需要完成示例接口联调，员工-A 请在 mock 环境确认结果。"}
+{"messageId":"mock-msg-002","sourceRowNum":2,"timestamp":"2026-02-03T21:08:00+08:00","senderRole":"员工-A","content":"已完成 mock 环境联调，正在整理订单系统示例验证截图。"}
+{"messageId":"mock-msg-003","sourceRowNum":3,"timestamp":"2026-02-11T20:30:00+08:00","senderRole":"发布协调-C","content":"BI 报表服务今晚发布，需观察 mock 指标是否恢复。"}
+
