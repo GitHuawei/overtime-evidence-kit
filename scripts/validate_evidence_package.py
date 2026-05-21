@@ -320,11 +320,12 @@ def validate_mock_only(
     data: dict[str, Any], errors: list[str], warnings: list[str]
 ) -> None:
     serialized = json.dumps(data, ensure_ascii=False)
+    phone_cleaned = PHONE_RE.sub("", serialized)
     if PHONE_RE.search(serialized):
         errors.append("package contains a phone-number-like value")
     if ID_CARD_RE.search(serialized):
         errors.append("package contains an ID-card-like value")
-    if REAL_COMMIT_RE.search(serialized):
+    if REAL_COMMIT_RE.search(phone_cleaned):
         errors.append("package contains a real-commit-like hash")
 
     if "示例科技有限公司" in serialized:

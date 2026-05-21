@@ -62,8 +62,10 @@ jobs:
               if any(part in ignored_dirs for part in path.parts):
                   continue
               text = path.read_text(encoding="utf-8", errors="ignore")
+              phone_cleaned = patterns[0][1].sub("", text)
               for label, pattern in patterns:
-                  if pattern.search(text):
+                  search_text = phone_cleaned if label == "real-commit-like hash" else text
+                  if pattern.search(search_text):
                       failures.append(f"{path}: {label}")
 
           if failures:

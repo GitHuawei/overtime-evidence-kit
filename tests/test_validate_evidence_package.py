@@ -71,6 +71,14 @@ class ValidateEvidencePackageTest(unittest.TestCase):
         result = validate_package(data)
         self.assertIn("$.evidenceItems[2].messageId must start with mock-", result.errors)
 
+    def test_phone_like_value_does_not_trigger_commit_hash_error(self):
+        data = load_mock_package()
+        placeholder_phone = "139" + "0000" + "0000"
+        data["subjectRole"] = f"mock role with placeholder phone {placeholder_phone}"
+        result = validate_package(data)
+        self.assertIn("package contains a phone-number-like value", result.errors)
+        self.assertNotIn("package contains a real-commit-like hash", result.errors)
+
     def test_start_time_must_be_earlier_than_end_time(self):
         data = load_mock_package()
         data["events"][0]["startTime"] = "2026-02-03T22:00:00+08:00"
