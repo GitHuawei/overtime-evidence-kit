@@ -35,6 +35,16 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertIn("## 边界说明", report)
         self.assertIn("- 质量门：", report)
         self.assertIn("- 证据强度：", report)
+        self.assertIn("工作日加班", report)
+        self.assertIn("发布夜处理", report)
+        self.assertIn("休息日任务", report)
+        self.assertIn("通过", report)
+        self.assertIn("需复核", report)
+        self.assertIn("证据来源单一", report)
+        self.assertIn("需要人工复核", report)
+        self.assertIn("单聊", report)
+        self.assertIn("群聊", report)
+        self.assertIn("Git 记录", report)
 
     def test_report_contains_all_event_ids(self):
         data = load_mock_package()
@@ -62,6 +72,12 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertEqual(len(rows), len(data["evidenceItems"]))
         self.assertIn("事件类型", rows[0])
         self.assertIn("日期", rows[0])
+        self.assertIn("工作日加班", csv_text)
+        self.assertIn("发布夜处理", csv_text)
+        self.assertIn("休息日任务", csv_text)
+        self.assertIn("单聊", csv_text)
+        self.assertIn("群聊", csv_text)
+        self.assertIn("Git 记录", csv_text)
 
     def test_evidence_index_can_be_read_as_csv(self):
         data = load_mock_package()

@@ -428,8 +428,22 @@ def check_demo_run() -> bool:
             or "## 事件概览" not in report
             or "## 复核提示" not in report
             or "## 边界说明" not in report
+            or "工作日加班" not in report
+            or "发布夜处理" not in report
+            or "休息日任务" not in report
+            or "需复核" not in report
+            or "证据来源单一" not in report
+            or "单聊" not in report
+            or "群聊" not in report
+            or "Git 记录" not in report
             or "sourceQuote" in report
             or index_header != expected_header
+            or "工作日加班" not in (output_dir / "mock-evidence-index.csv").read_text(
+                encoding="utf-8"
+            )
+            or "群聊" not in (output_dir / "mock-evidence-index.csv").read_text(
+                encoding="utf-8"
+            )
         ):
             print("FAIL demo run")
             print("demo public output localization check failed")

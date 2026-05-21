@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from display_labels import event_type_label, source_type_label
+
 
 CSV_FIELDS = [
     "\u8bc1\u636eID",
@@ -83,6 +85,8 @@ def render_index(data: dict[str, Any]) -> str:
         if isinstance(event, dict):
             package_row["eventType"] = event.get("eventType", "")
             package_row["workDate"] = event.get("workDate", "")
+        package_row["eventType"] = event_type_label(package_row.get("eventType", ""))
+        package_row["sourceType"] = source_type_label(package_row.get("sourceType", ""))
         row = {
             csv_field: package_row.get(package_field, "")
             for csv_field, package_field in PACKAGE_FIELD_BY_CSV_FIELD.items()

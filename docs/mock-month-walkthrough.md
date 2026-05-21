@@ -42,7 +42,7 @@ outputs/demo/
 
 ## 公开输出如何阅读
 
-`mock-report.md` 面向 GitHub 阅读场景，已中文化，包含：
+`mock-report.md` 面向 GitHub 阅读场景，已中文化，并把机器枚举值显示为中文标签，包含：
 
 - `摘要`：月份范围、事件数量、证据数量、质量门分布和证据强度分布。
 - `事件概览`：事件表格，适合快速扫描。
@@ -51,7 +51,9 @@ outputs/demo/
 - `复核提示`：需要人工复核的 mock events 和原因。
 - `边界说明`：mock-only 与非法律意见提醒。
 
-`mock-evidence-index.csv` 面向证据定位，已使用中文 header，包含 event 类型、日期、source 文件名和 source 行号。它不包含完整 `sourceQuote`。
+`mock-evidence-index.csv` 面向证据定位，已使用中文 header，并在 `事件类型` 和 `来源类型` 列使用中文展示标签。它不包含完整 `sourceQuote`。
+
+JSON package 中的机器值不变。例如 `package.json` 仍保存 `eventType=weekday_overtime`、`qualityGate=needs_review`、`riskFlags=single_source_only`；公开输出会显示为 `工作日加班`、`需复核`、`证据来源单一`。
 
 ## 当前 included events
 

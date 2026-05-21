@@ -75,13 +75,15 @@ python scripts/run_demo.py
 outputs/demo/
 ```
 
-生成文件（面向人读的公开输出已经中文化）：
+生成文件（面向人读的公开输出已经中文化，并使用中文展示标签）：
 
 - `outputs/demo/package.json`
 - `outputs/demo/mock-report.md`：中文 Markdown 摘要。
 - `outputs/demo/mock-evidence-index.csv`：中文 CSV header 的证据索引。
 
 `outputs/demo/` 已被 `.gitignore` 忽略，不应提交。
+
+说明：`package.json` 仍保留 `eventType`、`qualityGate`、`riskFlags` 等机器字段和 `weekday_overtime`、`needs_review` 等机器值；`mock-report.md` 和 `mock-evidence-index.csv` 会显示中文标签，例如 `工作日加班`、`需复核`、`证据来源单一`、`群聊`、`Git 记录`。
 
 自定义输出目录：
 
@@ -148,7 +150,7 @@ GitHub Actions 运行同一条质量门。
 - [Mock report](examples/mock-evidence-package/mock-report.md)
 - [Evidence index CSV](examples/mock-evidence-package/mock-evidence-index.csv)
 
-公开输出已经中文化，只展示结构化摘要、证据定位、质量门、风险提示和复核建议，不输出完整聊天原文、录音转写、源码、私有流程或法律结论。
+公开输出已经中文化，并把机器枚举值渲染为中文展示标签，便于人工阅读。它只展示结构化摘要、证据定位、质量门、风险提示和复核建议，不输出完整聊天原文、录音转写、源码、私有流程或法律结论。
 
 ## 目录结构
 

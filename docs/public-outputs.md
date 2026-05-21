@@ -42,6 +42,26 @@
 
 这些字段用于人工快速定位 mock evidence item。package JSON key 和 schema field name 仍保持英文不变，CSV header 是面向人读的公开输出。CSV 不应该暴露完整聊天原文、录音转写、源码或任何真实隐私信息。
 
+## 机器值与展示标签
+
+JSON package 保留机器字段和机器枚举值，便于 schema、validator、rules engine 和测试稳定运行。公开报告和 CSV evidence index 使用中文展示标签，便于人工阅读。
+
+示例：
+
+- `weekday_overtime` -> `工作日加班`
+- `release_night` -> `发布夜处理`
+- `rest_day_task` -> `休息日任务`
+- `pass` -> `通过`
+- `needs_review` -> `需复核`
+- `single_source_only` -> `证据来源单一`
+- `manual_review_required` -> `需要人工复核`
+- `wechat` -> `单聊`
+- `group_chat` -> `群聊`
+- `git` -> `Git 记录`
+- `strong` -> `强`
+- `medium` -> `中`
+- `weak` -> `弱`
+
 ## 不允许展示
 
 公开输出不应包含：
