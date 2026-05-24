@@ -4,7 +4,7 @@
 
 ## 发布准备摘要
 
-当前状态：`v0.1.0 Release Candidate`。
+当前状态：`v0.1.0` 已发布。
 
 可以公开展示：
 
@@ -42,7 +42,7 @@
 - `docs/faq.md`、`docs/positioning.md`、`docs/customer-safety.md`、`docs/service-overview.md` 已更新，并保持公开安全。
 - `CHANGELOG.md` 包含 known limitations。
 - issue template 和 PR template 提醒不要提交真实证据。
-- 未创建 GitHub Release 或 tag，除非维护者另行明确批准。
+- `v0.1.0` tag 和 GitHub Release 已创建。后续不要创建新的 tag 或 release，除非维护者另行明确批准。
 
 ## GitHub description 建议
 

@@ -60,7 +60,7 @@ evd-mock-chat-005,evt-mock-release-001,发布夜处理,2026-02-11,群聊,mock-we
 
 ## 当前状态
 
-当前状态：**v0.1.0 Release Candidate**。
+当前状态：**v0.1.0 正式发布版**。
 
 已经包含：
 
@@ -109,6 +109,7 @@ evd-mock-chat-005,evt-mock-release-001,发布夜处理,2026-02-11,群聊,mock-we
 - [FAQ](docs/faq.md)
 - [Service overview](docs/service-overview.md)
 - [Customer safety](docs/customer-safety.md)
+- [Public business boundary](docs/business-boundary.md)
 
 不要在 GitHub issue、PR 或 discussion 中粘贴真实材料。任何可能的私下咨询都应先确认授权、隐私边界、材料范围、保留/删除规则，并且不应被理解为法律意见。
 

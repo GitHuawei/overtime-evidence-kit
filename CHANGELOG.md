@@ -4,9 +4,9 @@
 
 - 暂无未发布变更。
 
-## v0.1.0 - planned
+## v0.1.0 - 2026-05-24
 
-`v0.1.0` 计划作为 `overtime-evidence-kit` 的首个受控公开版本。它面向中文用户展示一条完整的 mock-only 证据包链路：用完全虚构的 mock 数据演示如何把加班线索整理成可校验、可复核、可展示的证据包。
+`v0.1.0` 是 `overtime-evidence-kit` 的首个正式公开版本。它面向中文用户展示一条完整的 mock-only 证据包链路：用完全虚构的 mock 数据演示如何把加班线索整理成可校验、可复核、可展示的证据包。
 
 ### Launch-ready updates
 
@@ -35,7 +35,7 @@
 
 ### Changed
 
-- 项目状态推进到 `v0.1.0 Release Candidate`。
+- 项目状态推进到正式 `v0.1.0`。
 - README 改为中文优先，强调 demo、`outputs/demo/`、质量门和 mock-only 边界。
 - demo 文档改为中文优先，说明输出、清理方式和不读取真实文件。
 - public launch 与 repository settings 文档改为中文优先。

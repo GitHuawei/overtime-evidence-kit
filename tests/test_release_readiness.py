@@ -14,11 +14,11 @@ class ReleaseReadinessTests(unittest.TestCase):
     def test_release_readiness_audit_passes(self):
         self.assertTrue(check_all.check_release_readiness_files())
 
-    def test_readme_and_changelog_state_release_candidate_boundary(self):
+    def test_readme_and_changelog_state_formal_release_boundary(self):
         readme = self.read("README.md")
         changelog = self.read("CHANGELOG.md")
 
-        self.assertIn("v0.1.0 Release Candidate", readme)
+        self.assertIn("v0.1.0 正式发布版", readme)
         self.assertIn("mock-only", readme)
         self.assertIn("可校验、可复核、可展示", readme)
         self.assertIn("Excel-friendly UTF-8 with BOM", readme)
@@ -28,7 +28,7 @@ class ReleaseReadinessTests(unittest.TestCase):
         self.assertIn("不提供法律意见", readme)
         self.assertIn("python scripts/run_demo.py", readme)
         self.assertIn("outputs/demo/", readme)
-        self.assertIn("v0.1.0 - planned", changelog)
+        self.assertIn("v0.1.0 - 2026-05-24", changelog)
         self.assertIn("mock-only", changelog)
         self.assertIn("Launch-ready updates", changelog)
         self.assertIn("Excel-friendly UTF-8 with BOM", changelog)
@@ -39,25 +39,26 @@ class ReleaseReadinessTests(unittest.TestCase):
         public_launch = self.read("docs/public-launch.md")
         repository_settings = self.read("docs/repository-settings.md")
 
-        self.assertIn("v0.1.0 Release Candidate", public_launch)
+        self.assertIn("v0.1.0", public_launch)
+        self.assertIn("已发布", public_launch)
         self.assertIn("mock-only", public_launch)
-        self.assertIn("未创建 GitHub Release 或 tag", public_launch)
+        self.assertIn("不要创建新的 tag 或 release", public_launch)
         self.assertIn("不提供法律意见", public_launch)
         self.assertIn("post-launch monitoring checklist", public_launch)
 
         self.assertIn("GitHub repository settings", repository_settings)
         self.assertIn("建议 topics", repository_settings)
-        self.assertIn("不要创建 GitHub Release 或 tag", repository_settings)
+        self.assertIn("不要创建新的 GitHub Release 或 tag", repository_settings)
         self.assertIn("不加入法律结论", repository_settings)
 
     def test_release_checklist_blocks_private_plans_and_release_actions(self):
         checklist = self.read("docs/release-checklist.md")
 
-        self.assertIn("受控公开", checklist)
+        self.assertIn("v0.1.0", checklist)
         self.assertIn("docs/plans/", checklist)
         self.assertIn("docs/faq.md", checklist)
         self.assertIn("私有服务材料隔离", checklist)
-        self.assertIn("不要创建 GitHub Release 或 tag", checklist)
+        self.assertIn("不要创建新的 GitHub Release 或 tag", checklist)
         self.assertIn("Known limitations", checklist)
 
     def test_demo_doc_explains_chinese_run_path_and_boundaries(self):
@@ -75,6 +76,7 @@ class ReleaseReadinessTests(unittest.TestCase):
         positioning = self.read("docs/positioning.md")
         service_overview = self.read("docs/service-overview.md")
         customer_safety = self.read("docs/customer-safety.md")
+        business_boundary = self.read("docs/business-boundary.md")
         roadmap = self.read("docs/roadmap.md")
 
         self.assertIn("这个项目能处理我的真实微信聊天记录吗", faq)
@@ -96,6 +98,13 @@ class ReleaseReadinessTests(unittest.TestCase):
         self.assertIn("GitHub issue", customer_safety)
         self.assertIn("本项目不提供法律意见", customer_safety)
 
+        self.assertIn("Public Business Boundary", business_boundary)
+        self.assertIn("不是价格表", business_boundary)
+        self.assertIn("不在公开仓库说明", business_boundary)
+        self.assertIn("不要在 GitHub issue", business_boundary)
+
+        self.assertIn("当前公开版本：`v0.1.0`", roadmap)
+        self.assertIn("v0.1.0 发布后校准", roadmap)
         self.assertIn("服务咨询相关方向", roadmap)
         self.assertIn("永久不纳入公开仓库范围", roadmap)
 

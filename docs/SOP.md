@@ -1,108 +1,31 @@
-# 加班证据整理 SOP
+# Public-safe Method Overview
+
+本文档只说明 `overtime-evidence-kit` 在公开仓库中展示的高层方法。它不是客户交付 SOP，不是收费服务流程，不包含真实材料处理步骤，也不提供法律意见。
 
 ## 目标
 
-帮助技术岗位劳动者把分散材料整理为结构化、可追溯、可复核、已脱敏的证据包。该流程只做证据整理与材料结构化，不提供最终法律判断。
+用完全虚构的 mock 数据演示：如何把加班线索整理为结构化、可追踪、可复核、可展示的 evidence package、Markdown report 和 Excel-friendly CSV evidence index。
 
-## 1. 客户材料准备
+## 高层流程
 
-收集材料类型：
+1. 使用仓库内 committed mock source。
+2. 构建 mock evidence package。
+3. 运行 rules engine，为 mock events 生成 `evidenceStrength`、`qualityGate`、`riskFlags` 和 `reviewAction`。
+4. 运行 validator，检查 schema、时间顺序、证据覆盖和 mock-only 边界。
+5. 渲染中文 Markdown report。
+6. 渲染中文 CSV evidence index。
+7. 运行 `python scripts/check_all.py` 作为质量门。
 
-- 聊天或群聊导出。
-- Git 提交记录或代码平台导出。
-- 发布夜、线上问题处理、测试反馈记录。
-- 录音目录索引或已脱敏摘要。
-- 合同、考勤、工资等材料的脱敏索引。
+## 公开输出原则
 
-用户必须确认材料来源合法、有权使用，并已删除不必要的他人隐私和商业秘密。
+- 只展示摘要、索引、质量门、风险提示和复核建议。
+- 不输出真实原始材料。
+- 不输出完整聊天、录音转写、源码或客户数据。
+- 不把真实材料脱敏后放入示例。
+- 不写法律结论、胜率判断或结果承诺。
 
-## 2. 原始材料备份
+## mock-only 边界
 
-原始材料不应直接进入公开交付包。建议保留只读备份，后续加工只使用脱敏副本或索引副本。
+公开仓库不接收、不读取、不处理真实微信、真实 Git、真实录音、真实公司、人名、项目、金额、地址、手机号、合同、工资或任何可识别真实案件的信息。
 
-## 3. 隐私与敏感信息预处理
-
-处理范围：
-
-- 替换真实姓名、公司、项目、客户、地址、手机号。
-- 移除身份证号、银行卡、精确住址、源码片段、客户数据。
-- 将真实 commit、仓库名和录音文件名改为 mock 或脱敏标识。
-
-## 4. 目录导入
-
-导入后的证据项必须保留可追溯字段：
-
-- `sourceFileName`
-- `sourceRowNum`
-- `messageId`
-- `timestamp`
-- `sourceQuote`
-- `quickLocator`
-
-`quickLocator` 必须是 `sourceQuote` 的原文子串，便于人工回查。
-
-## 5. 候选加班事件生成
-
-从材料中抽取候选事件，并标记状态：
-
-- `included`：纳入证据包。
-- `excluded`：暂不纳入，但保留排除原因。
-- `merged`：与其他事件合并。
-
-## 6. 事件分类
-
-MVP 使用三类：
-
-- `weekday_overtime`：工作日延时。
-- `release_night`：发布夜或上线保障。
-- `rest_day_task`：休息日任务。
-
-## 7. 证据强度分级
-
-- `strong`：有明确时间、任务、结果和多来源互证。
-- `medium`：有任务和时间线，但结果或辅助证据不足。
-- `weak`：只有零散线索，需要人工补充。
-
-## 8. 风险标记
-
-常见风险：
-
-- `missing_end_time`
-- `single_source_only`
-- `unclear_task_owner`
-- `sensitive_content_present`
-- `needs_legal_review`
-
-## 9. 人工复核
-
-复核人员应检查：
-
-- 时间线是否连续。
-- 证据项是否能回查。
-- 是否存在过度推断。
-- 是否仍包含真实身份或敏感信息。
-- 是否需要咨询律师。
-
-## 10. 公开交付物生成
-
-公开输出只包含整理后的摘要、索引、证据强度、风险提示和复核建议。不暴露内部工作流字段、真实原始材料或不必要隐私。
-
-## 11. 质量校验
-
-运行校验脚本，至少检查：
-
-- 必填字段。
-- 事件与证据引用关系。
-- `quickLocator` 子串规则。
-- mock commit hash 前缀。
-- 公开输出不包含明显敏感字段。
-
-## 12. 客户验收
-
-客户确认：
-
-- 材料来源合法。
-- 脱敏结果可接受。
-- 事件分类和描述符合其真实理解。
-- 最终法律判断需由律师、仲裁委、法院或主管机关认定。
-
+如果需要讨论真实材料相关的咨询边界，请先阅读 `docs/customer-safety.md` 和 `docs/service-overview.md`，不要通过公开 GitHub 渠道提交材料。

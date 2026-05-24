@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-当前目标版本：`v0.1.0 Release Candidate`。
+当前公开版本：`v0.1.0`。
 
 已经具备的能力：
 
@@ -17,12 +17,12 @@
 - 运行 `python scripts/check_all.py` 做本地质量门。
 - 使用 GitHub Actions 对齐本地质量门。
 
-## v0.1.0 公开前重点
+## v0.1.0 发布后校准
 
-- README 首屏保持中文用户可读，30 秒内说明项目价值和边界。
-- FAQ、positioning、customer safety、service overview 保持公开安全。
-- issue templates 和 PR template 必须继续阻止真实材料进入公开渠道。
-- release checklist 必须确认 `docs/plans/` 不提交、`outputs/demo/` 不提交、不创建 tag 或 GitHub Release。
+- README 和 roadmap 反映正式 `v0.1.0` 状态。
+- FAQ、positioning、customer safety、service overview 和 business boundary 保持公开安全。
+- issue templates 和 PR template 继续阻止真实材料进入公开渠道。
+- `docs/plans/`、`outputs/demo/` 和 release notes 临时文件不提交。
 - 公开输出必须能重新生成，并通过 UTF-8、文本腐败、敏感模式、CSV BOM 和 demo 检查。
 
 ## 近期可能方向

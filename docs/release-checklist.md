@@ -1,6 +1,6 @@
 # Release Checklist
 
-本清单用于把 `overtime-evidence-kit` 准备到可以受控公开的 `v0.1.0 Release Candidate` 状态。它不会创建 GitHub Release，不会创建 tag，也不会发布 package。
+本清单用于维护 `overtime-evidence-kit` 的 `v0.1.0` 正式发布状态。它不会自动创建新的 GitHub Release，不会创建新的 tag，也不会发布 package。
 
 ## 公开决策
 
@@ -15,7 +15,7 @@
 - README 链接 `docs/faq.md`、`docs/positioning.md`、`docs/service-overview.md` 和 `docs/customer-safety.md`。
 - `CHANGELOG.md` 包含 launch-ready updates 和 Known limitations。
 - `docs/public-launch.md` 和 `docs/repository-settings.md` 已更新。
-- 未创建 GitHub Release 或 tag，除非维护者另行明确批准。
+- `v0.1.0` 已创建 tag 和 GitHub Release；不要创建新的 GitHub Release 或 tag，除非维护者另行明确批准。
 
 ## 本地检查
 
@@ -36,13 +36,13 @@ git tag --list
 - `docs/plans/` 未暂存、未提交。
 - `outputs/demo/` 被忽略，未暂存。
 - 没有本地临时文件被暂存。
-- `git tag --list` 为空，除非维护者已明确批准创建 tag。
+- `git tag --list` 只应包含已批准的发布 tag，例如 `v0.1.0`。
 
 ## 内容审计
 
 确认：
 
-- README 状态为 `v0.1.0 Release Candidate`。
+- README 状态为 `v0.1.0 正式发布版`。
 - README 解释能做什么和不能做什么。
 - README 展示 demo report 摘要片段和 CSV 片段。
 - README 链接 demo、公开输出、FAQ、定位、安全说明、服务咨询边界和质量门。
@@ -97,14 +97,14 @@ git tag --list
 
 ## tag / GitHub Release 决策
 
-以下命令只是说明，不要自动执行：
+`v0.1.0` 已发布。以下命令只是未来版本发布示例，不要自动执行：
 
 ```powershell
-git tag -a v0.1.0 -m "v0.1.0 release candidate"
-git push origin v0.1.0
+git tag -a v0.1.1 -m "v0.1.1"
+git push origin v0.1.1
 ```
 
-不要创建 GitHub Release 或 tag，除非维护者明确要求。
+不要创建新的 GitHub Release 或 tag，除非维护者明确要求。
 
 如果未来批准 release：
 

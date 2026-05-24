@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run all local checks for the release candidate."""
+"""Run all local checks for the public release."""
 
 from __future__ import annotations
 
@@ -36,6 +36,7 @@ RELEASE_REQUIRED_FILES = [
     "docs/demo.md",
     "docs/customer-safety.md",
     "docs/faq.md",
+    "docs/business-boundary.md",
     "docs/open-source-boundary.md",
     "docs/positioning.md",
     "docs/public-launch.md",
@@ -52,7 +53,7 @@ RELEASE_REQUIRED_FILES = [
 ]
 RELEASE_REQUIRED_PHRASES = {
     "README.md": [
-        "Release Candidate",
+        "v0.1.0 正式发布版",
         "mock-only",
         "不处理真实案件材料",
         "不提供法律意见",
@@ -66,7 +67,7 @@ RELEASE_REQUIRED_PHRASES = {
         "Excel-friendly UTF-8 with BOM",
     ],
     "CHANGELOG.md": [
-        "v0.1.0 - planned",
+        "v0.1.0 - 2026-05-24",
         "fictional mock evidence package",
         "mock-only",
         "Known limitations",
@@ -92,6 +93,12 @@ RELEASE_REQUIRED_PHRASES = {
         "真实微信聊天",
         "GitHub issue",
         "本项目不提供法律意见",
+    ],
+    "docs/business-boundary.md": [
+        "Public Business Boundary",
+        "不是价格表",
+        "不在公开仓库说明",
+        "不要在 GitHub issue",
     ],
     "docs/faq.md": [
         "这个项目能处理我的真实微信聊天记录吗",
@@ -125,16 +132,17 @@ RELEASE_REQUIRED_PHRASES = {
         "docs/service-overview.md",
     ],
     "docs/public-launch.md": [
-        "v0.1.0 Release Candidate",
+        "v0.1.0",
+        "已发布",
         "mock-only",
-        "未创建 GitHub Release 或 tag",
+        "不要创建新的 tag 或 release",
         "不提供法律意见",
         "post-launch monitoring checklist",
     ],
     "docs/release-checklist.md": [
-        "受控公开",
+        "v0.1.0",
         "docs/plans/",
-        "不要创建 GitHub Release 或 tag",
+        "不要创建新的 GitHub Release 或 tag",
         "Known limitations",
         "docs/faq.md",
         "私有服务材料隔离",
@@ -142,12 +150,13 @@ RELEASE_REQUIRED_PHRASES = {
     "docs/repository-settings.md": [
         "GitHub repository settings",
         "建议 topics",
-        "不要创建 GitHub Release 或 tag",
+        "不要创建新的 GitHub Release 或 tag",
         "不加入法律结论",
         "Public service inquiry boundary",
     ],
     "docs/roadmap.md": [
-        "v0.1.0 Release Candidate",
+        "当前公开版本：`v0.1.0`",
+        "v0.1.0 发布后校准",
         "服务咨询相关方向",
         "永久不纳入公开仓库范围",
         "付费服务交付 SOP",
