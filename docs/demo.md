@@ -45,6 +45,28 @@ outputs/demo/
 
 `package.json` 保留机器字段和机器枚举值，例如 `eventType=weekday_overtime`、`qualityGate=needs_review`。公开报告和 CSV 会使用中文展示标签，例如 `工作日加班`、`需复核`、`证据来源单一`、`群聊`、`Git 记录`。
 
+## demo 结果预览
+
+Markdown report 会展示类似结构：
+
+```text
+## 摘要
+
+| 字段 | 值 |
+| --- | --- |
+| 质量门 | 需复核 |
+| 复核重点 | 证据来源单一 |
+```
+
+CSV evidence index 会展示类似结构：
+
+```text
+证据ID,事件ID,事件类型,日期,来源类型,来源文件,来源行号,消息ID,快速定位,脱敏级别
+mock-evidence-001,mock-event-001,工作日加班,mock-date-001,群聊,mock-chat-export.jsonl,1,mock-message-001,mock locator,summary-only
+```
+
+这些内容都来自 fictional mock data，不代表真实案件。
+
 ## 自定义输出目录
 
 ```powershell
@@ -74,3 +96,11 @@ demo 不会：
 - 生成法律意见、法律结论或结果承诺。
 
 如果要实验，请只创建 fictional mock data。不要把真实案件材料脱敏后放进本仓库。
+
+## 需要进一步咨询时
+
+不要在 GitHub issue、PR、discussion 或附件中粘贴真实材料。先阅读：
+
+- `docs/faq.md`
+- `docs/customer-safety.md`
+- `docs/service-overview.md`

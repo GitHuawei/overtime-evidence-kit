@@ -10,6 +10,8 @@
 
 `python scripts/check_all.py` 会检查 committed sample output 是否与 renderer 输出一致，也会在临时目录运行 demo。
 
+这些输出适合放在 GitHub README、文档或本地 demo 中展示结构。它们不是法律意见，不是原始证据 dump，也不能替代专业复核。
+
 ## Markdown report 允许展示
 
 - `packageId`
@@ -87,3 +89,7 @@ JSON package 保留机器字段和机器枚举值，便于 schema、validator、
 - 不替代法律意见。
 - 公开输出必须可由 renderer 重新生成。
 - demo 输出应写入被忽略的 `outputs/demo/`，不提交到仓库。
+
+## 与服务咨询的关系
+
+公开输出可以帮助用户理解“结构化整理”的结果长什么样，但不能用于公开提交真实材料。如果用户想咨询自己的材料，应先阅读 `docs/customer-safety.md` 和 `docs/service-overview.md`，不要在 GitHub issue、PR、discussion 或附件中粘贴真实证据。

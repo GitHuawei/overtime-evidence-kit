@@ -64,3 +64,7 @@ git diff --check
 ## 隐私边界问题
 
 如果发现隐私或 mock-only 边界风险，请使用 privacy boundary issue template 报告，并只使用 fictional reproduction steps。不要粘贴真实证据。
+
+## 服务咨询边界
+
+如果问题涉及自己的真实材料，不要在 issue、PR、discussion、commit 或附件中粘贴内容。请先阅读 `docs/customer-safety.md` 和 `docs/service-overview.md`。公开仓库只接收 mock-only 项目改进，不接收真实材料审查、法律结论请求、服务报价讨论或私有交付流程。

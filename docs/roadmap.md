@@ -1,114 +1,61 @@
 # Roadmap
 
-## 已完成
+`overtime-evidence-kit` 的公开路线图围绕一个原则展开：只用完全虚构的 mock 数据演示证据结构化方法，不在公开仓库处理真实案件材料。
 
-### Phase 0: MVP Skeleton
+## 当前状态
 
-- README、SOP、service boundary、privacy 文档。
-- event、evidence item、evidence package 的核心 schema。
-- mock source 和 mock evidence package。
-- 基础 validator 和 mock report renderer。
-- 单元测试。
+当前目标版本：`v0.1.0 Release Candidate`。
 
-### Phase 1: Validation Enhancements
+已经具备的能力：
 
-- GitHub Actions CI。
-- JSON Schema validation。
-- 时间顺序校验。
-- `durationMinutes` 一致性检查。
-- event evidence coverage validation。
-- `quickLocator` 子串校验。
-- mock-only sensitive pattern scanning。
+- 一条命令运行 mock demo：`python scripts/run_demo.py`。
+- 从 committed mock source 构建 mock evidence package。
+- 运行 rules engine，生成 `evidenceStrength`、`qualityGate`、`riskFlags` 和 `reviewAction`。
+- 使用 JSON Schema 和 validator 校验证据包结构、时间顺序、证据覆盖和 mock-only 边界。
+- 渲染中文 Markdown report。
+- 渲染中文 CSV evidence index，并使用 Excel-friendly UTF-8 with BOM。
+- 运行 `python scripts/check_all.py` 做本地质量门。
+- 使用 GitHub Actions 对齐本地质量门。
 
-### Open Source Readiness
+## v0.1.0 公开前重点
 
-- `LICENSE`。
-- `CONTRIBUTING.md`。
-- `SECURITY.md`。
-- open-source boundary 文档。
-- README 隐私提醒、快速开始和项目范围。
-- `.idea/` ignore rule。
+- README 首屏保持中文用户可读，30 秒内说明项目价值和边界。
+- FAQ、positioning、customer safety、service overview 保持公开安全。
+- issue templates 和 PR template 必须继续阻止真实材料进入公开渠道。
+- release checklist 必须确认 `docs/plans/` 不提交、`outputs/demo/` 不提交、不创建 tag 或 GitHub Release。
+- 公开输出必须能重新生成，并通过 UTF-8、文本腐败、敏感模式、CSV BOM 和 demo 检查。
 
-### Open Source Preview
+## 近期可能方向
 
-- 完整 mock 月份 walkthrough。
-- 一键质量门。
-- CI 对齐 `scripts/check_all.py`。
-- validator 输出和规则增强。
-- mock report 和 evidence index 输出增强。
-- public outputs 文档。
-- 关键验证和渲染行为测试。
+- 改进 validator error grouping，让修复建议更容易理解。
+- 增加更多完全虚构的 mock scenarios，用于覆盖不同证据来源组合。
+- 增强 CLI 体验，例如更清晰的 summary 和失败定位。
+- 为 rules engine 增加可配置阈值，但仍只面向 mock package。
+- 完善 local-only redaction workflow design 文档，但不接入真实数据。
 
-### Phase A: Input Adapter MVP
+## 服务咨询相关方向
 
-- mock source adapter fields。
-- `scripts/build_mock_package.py`。
-- `docs/input-adapters.md`。
-- `docs/package-builder.md`。
-- build -> validate -> render workflow。
+公开仓库可以说明“证据结构化整理协助/咨询”的安全边界，但不能接收真实材料，也不能公开私有交付流程。
 
-### Phase B: Rules Engine MVP
+可公开讨论：
 
-- `scripts/rules_engine.py`。
-- `scripts/evaluate_mock_package.py`。
-- `docs/rules-engine.md`。
-- 自动计算 `evidenceStrength`、`qualityGate`、`riskFlags`、`reviewAction`。
+- 如何理解 evidence package 结构。
+- 如何用 mock 数据复现结构问题。
+- 如何区分机器字段和人读输出。
+- 如何在不暴露真实材料的前提下提出需求。
 
-### Phase C: Public Output Polish
+不可公开讨论：
 
-- GitHub-readable mock report structure。
-- stable public evidence index fields。
-- renderer consistency checks。
-- public outputs 阅读说明。
+- 真实聊天、真实 Git、真实录音、真实身份、真实金额、真实合同或真实案件细节。
+- 私有服务 SOP、定价细节、客户材料处理细节。
+- 法律意见、法律结论、胜率判断或结果承诺。
 
-### Phase D: Open Source Release Candidate
-
-- README 状态更新为 `v0.1.0 Release Candidate`。
-- `CHANGELOG.md`。
-- release checklist。
-- GitHub issue templates。
-- Pull request template。
-- 更强的 contribution、security、open-source boundary 文案。
-- `scripts/check_all.py` release readiness audit。
-
-### Phase E: Public Launch Prep
-
-- README 首屏发布准备文案。
-- `CHANGELOG.md` Known limitations。
-- public release checklist 更新。
-- public launch notes。
-- repository settings 建议。
-- launch readiness checks。
-
-### Phase F: Demo Experience
-
-- `scripts/run_demo.py` 一条命令 demo。
-- 默认输出到 `outputs/demo/`。
-- demo 输出被 `.gitignore` 忽略。
-- demo 文档和测试。
-- `scripts/check_all.py` 在临时目录运行 demo。
-
-### Phase G: Chinese Localization and Demo Clarity
-
-- README 中文优先。
-- demo、public launch、repository settings、release checklist 中文优先。
-- CHANGELOG、CONTRIBUTING、SECURITY 中文可读。
-- release readiness 文案检查同步为中文优先。
-- 外部文本腐败扫描纳入验证。
-
-## 后续方向
-
-- 更严格的 mock input adapter validation。
-- 可配置 rules-engine thresholds。
-- local-only redaction workflow design。
-- 更好的 CLI UX。
-- 更多 fictional mock scenarios。
-- 更清晰的 validator error grouping 和 remediation messages。
-
-## 永久不纳入范围
+## 永久不纳入公开仓库范围
 
 - 真实案件材料。
 - 真实客户原始证据。
 - 真实微信、真实 Git、真实录音导入。
+- 扫描用户真实本地文件或真实仓库。
 - 自动法律结论。
 - 替代律师、仲裁员、法院、监管机构或专业判断。
+- 付费服务交付 SOP、真实客户材料、报价细节或 paid pilot 材料。

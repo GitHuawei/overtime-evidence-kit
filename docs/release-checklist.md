@@ -8,10 +8,12 @@
 
 - 仓库可见性变更是明确决策。
 - README 首屏说明项目是 mock-only。
+- README 包含一句话钩子：用完全虚构的 mock 数据演示如何把加班线索整理成可校验、可复核、可展示的证据包。
 - README 说明如何运行 `python scripts/run_demo.py`。
 - README 说明 `outputs/demo/` 生成什么。
 - README 说明不处理真实案件材料。
-- `CHANGELOG.md` 包含 Known limitations。
+- README 链接 `docs/faq.md`、`docs/positioning.md`、`docs/service-overview.md` 和 `docs/customer-safety.md`。
+- `CHANGELOG.md` 包含 launch-ready updates 和 Known limitations。
 - `docs/public-launch.md` 和 `docs/repository-settings.md` 已更新。
 - 未创建 GitHub Release 或 tag，除非维护者另行明确批准。
 
@@ -42,7 +44,12 @@ git tag --list
 
 - README 状态为 `v0.1.0 Release Candidate`。
 - README 解释能做什么和不能做什么。
-- README 链接 demo、公开输出和质量门。
+- README 展示 demo report 摘要片段和 CSV 片段。
+- README 链接 demo、公开输出、FAQ、定位、安全说明、服务咨询边界和质量门。
+- `docs/faq.md` 明确回答真实微信、法律意见和安全咨询问题。
+- `docs/positioning.md` 解释结构化、可追踪、可复核的价值。
+- `docs/service-overview.md` 只写公开安全边界，不写价格、私有 SOP 或结果承诺。
+- `docs/customer-safety.md` 明确禁止公开上传真实材料。
 - 文档不承诺法律结果。
 - examples 全部是 fictional mock data。
 - tests 不包含真实数据。
@@ -78,6 +85,15 @@ git tag --list
 - 安全公告功能开启。
 - PR template 可见。
 - Actions badge 指向当前 CI workflow。
+
+## 私有服务材料隔离
+
+如果维护者同时维护私有服务材料，请确认：
+
+- 私有服务材料只保存在私有侧指定目录。
+- 私有服务材料没有复制进公开仓库。
+- 公开仓库只包含 `docs/service-overview.md` 这类安全边界说明。
+- 公开仓库不包含服务报价、私有交付 SOP、客户 intake 原始流程、真实客户材料或 paid pilot 文档。
 
 ## tag / GitHub Release 决策
 

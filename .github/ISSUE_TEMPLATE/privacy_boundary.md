@@ -19,6 +19,8 @@ Which file, script, template, or documentation page may allow real information t
 
 Describe the concern using fictional mock data only.
 
+Do not attach real screenshots, exports, recordings, source files, contracts, or private service material.
+
 ## Risk
 
 Explain why this could weaken the mock-only boundary.

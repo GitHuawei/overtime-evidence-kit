@@ -28,6 +28,8 @@ Can this be represented with fictional mock data?
 
 Explain how the feature keeps real private material out of issues, pull requests, discussions, tests, and examples.
 
+Do not request real evidence review, legal advice, pricing, or private service delivery details in this issue.
+
 ## Alternatives
 
 Describe any simpler option.

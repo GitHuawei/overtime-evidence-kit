@@ -20,12 +20,18 @@ class ReleaseReadinessTests(unittest.TestCase):
 
         self.assertIn("v0.1.0 Release Candidate", readme)
         self.assertIn("mock-only", readme)
+        self.assertIn("可校验、可复核、可展示", readme)
+        self.assertIn("Excel-friendly UTF-8 with BOM", readme)
+        self.assertIn("docs/faq.md", readme)
+        self.assertIn("docs/service-overview.md", readme)
         self.assertIn("不处理真实案件材料", readme)
         self.assertIn("不提供法律意见", readme)
         self.assertIn("python scripts/run_demo.py", readme)
         self.assertIn("outputs/demo/", readme)
         self.assertIn("v0.1.0 - planned", changelog)
         self.assertIn("mock-only", changelog)
+        self.assertIn("Launch-ready updates", changelog)
+        self.assertIn("Excel-friendly UTF-8 with BOM", changelog)
         self.assertIn("Known limitations", changelog)
         self.assertIn("不处理真实案件材料", changelog)
 
@@ -49,6 +55,8 @@ class ReleaseReadinessTests(unittest.TestCase):
 
         self.assertIn("受控公开", checklist)
         self.assertIn("docs/plans/", checklist)
+        self.assertIn("docs/faq.md", checklist)
+        self.assertIn("私有服务材料隔离", checklist)
         self.assertIn("不要创建 GitHub Release 或 tag", checklist)
         self.assertIn("Known limitations", checklist)
 
@@ -57,8 +65,39 @@ class ReleaseReadinessTests(unittest.TestCase):
 
         self.assertIn("python scripts/run_demo.py", demo)
         self.assertIn("outputs/demo/", demo)
+        self.assertIn("Excel-friendly UTF-8 with BOM", demo)
+        self.assertIn("docs/service-overview.md", demo)
         self.assertIn("不读取用户真实文件", demo)
         self.assertIn("不要把真实案件材料脱敏后放进本仓库", demo)
+
+    def test_formal_launch_docs_are_public_safe(self):
+        faq = self.read("docs/faq.md")
+        positioning = self.read("docs/positioning.md")
+        service_overview = self.read("docs/service-overview.md")
+        customer_safety = self.read("docs/customer-safety.md")
+        roadmap = self.read("docs/roadmap.md")
+
+        self.assertIn("这个项目能处理我的真实微信聊天记录吗", faq)
+        self.assertIn("不能", faq)
+        self.assertIn("这个项目是不是法律意见", faq)
+        self.assertIn("Excel-friendly UTF-8 with BOM", faq)
+
+        self.assertIn("结构化方法", positioning)
+        self.assertIn("可追踪", positioning)
+        self.assertIn("可复核", positioning)
+
+        self.assertIn("公开安全的服务咨询边界", service_overview)
+        self.assertIn("GitHub 不接收真实材料", service_overview)
+        self.assertIn("法律意见", service_overview)
+        self.assertIn("真实服务流程", service_overview)
+
+        self.assertIn("不要公开上传", customer_safety)
+        self.assertIn("真实微信聊天", customer_safety)
+        self.assertIn("GitHub issue", customer_safety)
+        self.assertIn("本项目不提供法律意见", customer_safety)
+
+        self.assertIn("服务咨询相关方向", roadmap)
+        self.assertIn("永久不纳入公开仓库范围", roadmap)
 
     def test_issue_templates_warn_against_real_material(self):
         for relative_path in [

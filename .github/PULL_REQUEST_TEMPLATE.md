@@ -11,6 +11,7 @@ Describe the change.
 - [ ] It contains no real names, company names, project names, customer names, addresses, phone numbers, amounts, contracts, salaries, or identifiers.
 - [ ] It contains no real service delivery workflow, private review procedure, or customer material.
 - [ ] It does not promise legal advice, legal conclusions, or legal outcomes.
+- [ ] It does not add pricing, paid pilot material, private service SOP, or real customer intake content to the public repository.
 
 ## Validation
 

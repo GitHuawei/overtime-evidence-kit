@@ -26,6 +26,8 @@ Link to a repository file or paste a minimal fictional snippet.
 
 Do not paste real evidence.
 
+If this is about a real personal situation, do not include the material here. Read `docs/customer-safety.md` and `docs/service-overview.md` first.
+
 ## Expected Behavior
 
 Describe what should happen.
