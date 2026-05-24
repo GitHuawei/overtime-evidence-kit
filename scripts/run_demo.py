@@ -21,7 +21,7 @@ from build_mock_package import (  # noqa: E402
     DEFAULT_MESSAGES,
     build_package,
 )
-from render_evidence_index import CSV_FIELDS, render_index  # noqa: E402
+from render_evidence_index import CSV_FIELDS, write_index_file  # noqa: E402
 from render_mock_report import render_report  # noqa: E402
 from validate_evidence_package import validate_package  # noqa: E402
 
@@ -68,7 +68,7 @@ def run_demo(output_dir: Path = DEFAULT_OUTPUT_DIR, clean: bool = True) -> dict[
 
     write_text(package_path, json.dumps(package, ensure_ascii=False, indent=2) + "\n")
     write_text(report_path, render_report(package))
-    write_text(index_path, render_index(package))
+    write_index_file(index_path, package)
 
     events = [item for item in package.get("events", []) if isinstance(item, dict)]
     evidence_items = [

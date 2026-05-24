@@ -25,6 +25,7 @@ CSV_FIELDS = [
     "\u5feb\u901f\u5b9a\u4f4d",
     "\u8131\u654f\u7ea7\u522b",
 ]
+CSV_FILE_ENCODING = "utf-8-sig"
 PACKAGE_FIELD_BY_CSV_FIELD = {
     "\u8bc1\u636eID": "evidenceId",
     "\u4e8b\u4ef6ID": "eventId",
@@ -93,6 +94,10 @@ def render_index(data: dict[str, Any]) -> str:
         }
         writer.writerow(row)
     return output.getvalue()
+
+
+def write_index_file(path: Path, data: dict[str, Any]) -> None:
+    path.write_text(render_index(data), encoding=CSV_FILE_ENCODING, newline="\n")
 
 
 def main(argv: list[str]) -> int:

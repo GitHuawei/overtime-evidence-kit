@@ -33,7 +33,7 @@ outputs/demo/
 
 - `outputs/demo/package.json`
 - `outputs/demo/mock-report.md`：中文 Markdown 摘要。
-- `outputs/demo/mock-evidence-index.csv`：中文 CSV header 的证据索引。
+- `outputs/demo/mock-evidence-index.csv`：中文 CSV header 的证据索引，使用 Excel-friendly UTF-8 with BOM，可在 Windows Excel 中直接打开。
 
 `outputs/demo/` 已被 `.gitignore` 忽略，不应提交。
 
@@ -41,7 +41,7 @@ outputs/demo/
 
 - `package.json`：评估后的 mock evidence package，包含 `evidenceStrength`、`qualityGate`、`riskFlags`、`reviewAction` 等字段。
 - `mock-report.md`：面向 GitHub 阅读的中文 Markdown 摘要，包含 `摘要`、`事件概览`、`纳入事件`、`复核提示` 和 `边界说明`。
-- `mock-evidence-index.csv`：中文 CSV header 的证据索引表，字段稳定，适合用表格工具快速扫描。
+- `mock-evidence-index.csv`：中文 CSV header 的证据索引表，字段稳定，使用 Excel-friendly UTF-8 with BOM，适合用 Windows Excel 直接打开并快速扫描。
 
 `package.json` 保留机器字段和机器枚举值，例如 `eventType=weekday_overtime`、`qualityGate=needs_review`。公开报告和 CSV 会使用中文展示标签，例如 `工作日加班`、`需复核`、`证据来源单一`、`群聊`、`Git 记录`。
 

@@ -351,19 +351,28 @@ def check_committed_outputs() -> bool:
             ],
             ROOT / "examples" / "mock-evidence-package" / "mock-evidence-index.csv",
             "committed evidence index",
+            "utf-8-sig",
         ),
     ]
-    for command, expected_path, name in samples:
+    for sample in samples:
+        command, expected_path, name = sample[:3]
+        encoding = sample[3] if len(sample) > 3 else "utf-8"
         result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
         if result.returncode != 0:
             print(f"FAIL {name}")
             if result.stderr:
                 print(result.stderr, end="", file=sys.stderr)
             return False
-        expected = expected_path.read_text(encoding="utf-8")
+        expected = expected_path.read_text(encoding=encoding)
         if result.stdout != expected:
             print(f"FAIL {name}")
             print(f"{expected_path.relative_to(ROOT)} is out of date; regenerate sample output")
+            return False
+        if name == "committed evidence index" and not expected_path.read_bytes().startswith(
+            b"\xef\xbb\xbf"
+        ):
+            print(f"FAIL {name}")
+            print(f"{expected_path.relative_to(ROOT)} is missing UTF-8 BOM")
             return False
         print(f"PASS {name}")
     return True
@@ -418,9 +427,13 @@ def check_demo_run() -> bool:
         ):
             return False
         report = (output_dir / "mock-report.md").read_text(encoding="utf-8")
-        index_header = (output_dir / "mock-evidence-index.csv").read_text(
-            encoding="utf-8"
-        ).splitlines()[0]
+        index_path = output_dir / "mock-evidence-index.csv"
+        if not index_path.read_bytes().startswith(b"\xef\xbb\xbf"):
+            print("FAIL demo run")
+            print("demo evidence index CSV is missing UTF-8 BOM")
+            return False
+        index_text = index_path.read_text(encoding="utf-8-sig")
+        index_header = index_text.splitlines()[0]
         expected_header = "证据ID,事件ID,事件类型,日期,来源类型,来源文件,来源行号,消息ID,快速定位,脱敏级别"
         if (
             "mock-only 提醒" not in report
@@ -438,12 +451,8 @@ def check_demo_run() -> bool:
             or "Git 记录" not in report
             or "sourceQuote" in report
             or index_header != expected_header
-            or "工作日加班" not in (output_dir / "mock-evidence-index.csv").read_text(
-                encoding="utf-8"
-            )
-            or "群聊" not in (output_dir / "mock-evidence-index.csv").read_text(
-                encoding="utf-8"
-            )
+            or "工作日加班" not in index_text
+            or "群聊" not in index_text
         ):
             print("FAIL demo run")
             print("demo public output localization check failed")

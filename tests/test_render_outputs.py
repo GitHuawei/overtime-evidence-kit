@@ -3,6 +3,7 @@ import io
 import json
 import re
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -10,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from render_evidence_index import CSV_FIELDS, render_index  # noqa: E402
+from render_evidence_index import CSV_FIELDS, render_index, write_index_file  # noqa: E402
 from render_mock_report import MOCK_ONLY_NOTICE, render_report  # noqa: E402
 
 
@@ -85,6 +86,15 @@ class RenderOutputsTest(unittest.TestCase):
         self.assertEqual(set(rows[0].keys()), set(CSV_FIELDS))
         self.assertTrue(all(row["脱敏级别"] == "mock" for row in rows))
 
+    def test_evidence_index_file_is_excel_friendly_utf8_bom(self):
+        data = load_mock_package()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_path = Path(temp_dir) / "mock-evidence-index.csv"
+            write_index_file(output_path, data)
+            self.assertTrue(output_path.read_bytes().startswith(b"\xef\xbb\xbf"))
+            first_line = output_path.read_text(encoding="utf-8-sig").splitlines()[0]
+            self.assertEqual(first_line, ",".join(CSV_FIELDS))
+
     def test_renderers_match_committed_samples(self):
         data = load_mock_package()
         expected_report = (ROOT / "examples" / "mock-evidence-package" / "mock-report.md").read_text(
@@ -92,7 +102,7 @@ class RenderOutputsTest(unittest.TestCase):
         )
         expected_index = (
             ROOT / "examples" / "mock-evidence-package" / "mock-evidence-index.csv"
-        ).read_text(encoding="utf-8")
+        ).read_text(encoding="utf-8-sig")
         self.assertEqual(render_report(data), expected_report)
         self.assertEqual(render_index(data), expected_index)
 

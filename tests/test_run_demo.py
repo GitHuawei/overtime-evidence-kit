@@ -61,10 +61,12 @@ class RunDemoTests(unittest.TestCase):
         output_dir, _summary = self.run_demo_in_temp()
         first_line = (
             output_dir / "mock-evidence-index.csv"
-        ).read_text(encoding="utf-8").splitlines()[0]
+        ).read_text(encoding="utf-8-sig").splitlines()[0]
 
         self.assertEqual(first_line, ",".join(CSV_FIELDS))
-        csv_text = (output_dir / "mock-evidence-index.csv").read_text(encoding="utf-8")
+        csv_path = output_dir / "mock-evidence-index.csv"
+        self.assertTrue(csv_path.read_bytes().startswith(b"\xef\xbb\xbf"))
+        csv_text = csv_path.read_text(encoding="utf-8-sig")
         self.assertIn("工作日加班", csv_text)
         self.assertIn("群聊", csv_text)
 
