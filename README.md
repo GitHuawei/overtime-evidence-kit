@@ -62,6 +62,8 @@ evd-mock-chat-005,evt-mock-release-001,发布夜处理,2026-02-11,群聊,mock-we
 
 当前状态：**v0.1.0 正式发布版**。
 
+当前公开预览发布目标：**v0.2.0-public-preview**。该版本不增加真实材料处理能力，只用于把现有 mock-only 中文 demo、公开报告、Excel-friendly CSV 和安全边界作为公开预览版本展示。
+
 已经包含：
 
 - fictional mock 月份样例。
@@ -126,6 +128,7 @@ git diff --check
 ## 文档
 
 - [Demo guide](docs/demo.md)
+- [GitHub Release notes](docs/github-release-v0.2.0-public-preview.md)
 - [FAQ](docs/faq.md)
 - [Positioning](docs/positioning.md)
 - [Service overview](docs/service-overview.md)

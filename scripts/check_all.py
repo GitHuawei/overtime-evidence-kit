@@ -43,6 +43,7 @@ RELEASE_REQUIRED_FILES = [
     "docs/public-outputs.md",
     "docs/release-checklist.md",
     "docs/repository-settings.md",
+    "docs/github-release-v0.2.0-public-preview.md",
     "docs/roadmap.md",
     "docs/service-overview.md",
     ".github/workflows/ci.yml",
@@ -133,6 +134,7 @@ RELEASE_REQUIRED_PHRASES = {
     ],
     "docs/public-launch.md": [
         "v0.1.0",
+        "v0.2.0-public-preview",
         "已发布",
         "mock-only",
         "不要创建新的 tag 或 release",
@@ -141,6 +143,7 @@ RELEASE_REQUIRED_PHRASES = {
     ],
     "docs/release-checklist.md": [
         "v0.1.0",
+        "v0.2.0-public-preview",
         "docs/plans/",
         "不要创建新的 GitHub Release 或 tag",
         "Known limitations",
@@ -150,9 +153,20 @@ RELEASE_REQUIRED_PHRASES = {
     "docs/repository-settings.md": [
         "GitHub repository settings",
         "建议 topics",
+        "v0.2.0-public-preview",
         "不要创建新的 GitHub Release 或 tag",
         "不加入法律结论",
         "Public service inquiry boundary",
+    ],
+    "docs/github-release-v0.2.0-public-preview.md": [
+        "v0.2.0-public-preview",
+        "mock-only",
+        "python scripts/run_demo.py",
+        "python scripts/check_all.py",
+        "不处理真实案件材料",
+        "不提供法律意见",
+        "不要在 GitHub issue",
+        "Excel-friendly UTF-8 with BOM",
     ],
     "docs/roadmap.md": [
         "当前公开版本：`v0.1.0`",

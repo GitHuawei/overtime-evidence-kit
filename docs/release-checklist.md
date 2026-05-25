@@ -1,6 +1,6 @@
 # Release Checklist
 
-本清单用于维护 `overtime-evidence-kit` 的 `v0.1.0` 正式发布状态。它不会自动创建新的 GitHub Release，不会创建新的 tag，也不会发布 package。
+本清单用于维护 `overtime-evidence-kit` 的 `v0.1.0` 正式发布状态，并记录已批准的 `v0.2.0-public-preview` 公开预览发布检查。它不会自动创建新的 GitHub Release，不会创建新的 tag，也不会发布 package。
 
 ## 公开决策
 
@@ -15,7 +15,7 @@
 - README 链接 `docs/faq.md`、`docs/positioning.md`、`docs/service-overview.md` 和 `docs/customer-safety.md`。
 - `CHANGELOG.md` 包含 launch-ready updates 和 Known limitations。
 - `docs/public-launch.md` 和 `docs/repository-settings.md` 已更新。
-- `v0.1.0` 已创建 tag 和 GitHub Release；不要创建新的 GitHub Release 或 tag，除非维护者另行明确批准。
+- `v0.1.0` 已创建 tag 和 GitHub Release；不要创建新的 GitHub Release 或 tag，除非维护者另行明确批准。本次 `v0.2.0-public-preview` 是维护者已明确批准的公开预览 tag。
 
 ## 本地检查
 
@@ -36,7 +36,7 @@ git tag --list
 - `docs/plans/` 未暂存、未提交。
 - `outputs/demo/` 被忽略，未暂存。
 - 没有本地临时文件被暂存。
-- `git tag --list` 只应包含已批准的发布 tag，例如 `v0.1.0`。
+- `git tag --list` 只应包含已批准的发布 tag，例如 `v0.1.0` 和 `v0.2.0-public-preview`。
 
 ## 内容审计
 
@@ -105,6 +105,13 @@ git push origin v0.1.1
 ```
 
 不要创建新的 GitHub Release 或 tag，除非维护者明确要求。
+
+本次已批准的 public preview tag：
+
+```powershell
+git tag -a v0.2.0-public-preview -m "Public preview release"
+git push origin v0.2.0-public-preview
+```
 
 如果未来批准 release：
 

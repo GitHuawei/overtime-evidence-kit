@@ -38,8 +38,10 @@ class ReleaseReadinessTests(unittest.TestCase):
     def test_public_launch_docs_are_public_safe(self):
         public_launch = self.read("docs/public-launch.md")
         repository_settings = self.read("docs/repository-settings.md")
+        github_release = self.read("docs/github-release-v0.2.0-public-preview.md")
 
         self.assertIn("v0.1.0", public_launch)
+        self.assertIn("v0.2.0-public-preview", public_launch)
         self.assertIn("已发布", public_launch)
         self.assertIn("mock-only", public_launch)
         self.assertIn("不要创建新的 tag 或 release", public_launch)
@@ -48,13 +50,23 @@ class ReleaseReadinessTests(unittest.TestCase):
 
         self.assertIn("GitHub repository settings", repository_settings)
         self.assertIn("建议 topics", repository_settings)
+        self.assertIn("v0.2.0-public-preview", repository_settings)
         self.assertIn("不要创建新的 GitHub Release 或 tag", repository_settings)
         self.assertIn("不加入法律结论", repository_settings)
+
+        self.assertIn("v0.2.0-public-preview", github_release)
+        self.assertIn("mock-only", github_release)
+        self.assertIn("python scripts/run_demo.py", github_release)
+        self.assertIn("python scripts/check_all.py", github_release)
+        self.assertIn("不处理真实案件材料", github_release)
+        self.assertIn("不提供法律意见", github_release)
+        self.assertIn("不要在 GitHub issue", github_release)
 
     def test_release_checklist_blocks_private_plans_and_release_actions(self):
         checklist = self.read("docs/release-checklist.md")
 
         self.assertIn("v0.1.0", checklist)
+        self.assertIn("v0.2.0-public-preview", checklist)
         self.assertIn("docs/plans/", checklist)
         self.assertIn("docs/faq.md", checklist)
         self.assertIn("私有服务材料隔离", checklist)

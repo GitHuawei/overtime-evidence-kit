@@ -6,6 +6,8 @@
 
 当前状态：`v0.1.0` 已发布。
 
+本次公开发布收尾的目标 tag：`v0.2.0-public-preview`。它是 public preview release，不改变 mock-only 边界，不新增真实 adapter，不处理真实案件材料。
+
 可以公开展示：
 
 - mock-only evidence package 结构。
@@ -42,7 +44,7 @@
 - `docs/faq.md`、`docs/positioning.md`、`docs/customer-safety.md`、`docs/service-overview.md` 已更新，并保持公开安全。
 - `CHANGELOG.md` 包含 known limitations。
 - issue template 和 PR template 提醒不要提交真实证据。
-- `v0.1.0` tag 和 GitHub Release 已创建。后续不要创建新的 tag 或 release，除非维护者另行明确批准。
+- `v0.1.0` tag 和 GitHub Release 已创建。后续不要创建新的 tag 或 release，除非维护者另行明确批准；本次 `v0.2.0-public-preview` 属于维护者已批准的公开预览发布动作。
 
 ## GitHub description 建议
 
